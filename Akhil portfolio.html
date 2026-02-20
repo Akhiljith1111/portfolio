@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akhiljith R – Frontend Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --border: #1e1e2e;
+    --accent: #00ff88;
+    --accent2: #7c3aed;
+    --text: #e8e8f0;
+    --muted: #6b6b80;
+    --mono: 'DM Mono', monospace;
+    --sans: 'Syne', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 4rem;
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,15,0.7);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a.active { color: var(--accent); }
+
+  /* SECTIONS */
+  section {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 8rem 4rem;
+  }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 10rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-name {
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-name span {
+    display: block;
+    color: var(--accent);
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 2px var(--accent);
+  }
+
+  .hero-tagline {
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .btn {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    padding: 0.85rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+    border: 2px solid var(--accent);
+    font-weight: 500;
+  }
+
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--accent);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 2px solid var(--border);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border);
+    opacity: 0;
+    animation: fadeUp 0.8s 1s forwards;
+  }
+
+  .stat-num {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 0.4rem;
+    letter-spacing: 0.08em;
+  }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    background: rgba(0,255,136,0.08);
+    border: 1px solid rgba(0,255,136,0.2);
+    padding: 0.35rem 0.75rem;
+    border-radius: 2px;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-text p strong { color: var(--text); }
+
+  .about-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+  }
+
+  .about-card-title {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
+  }
+
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .info-row:last-child { border-bottom: none; }
+
+  .info-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+
+  .info-value {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--text);
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-category {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.75rem;
+    transition: border-color 0.2s;
+  }
+
+  .skill-category:hover { border-color: rgba(0,255,136,0.3); }
+
+  .skill-cat-title {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    margin-bottom: 1.25rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.65rem;
+    border-radius: 3px;
+  }
+
+  /* EXPERIENCE */
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 3rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .exp-item:first-child { border-top: 1px solid var(--border); }
+
+  .exp-date {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    padding-top: 0.3rem;
+  }
+
+  .exp-role {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .exp-company {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .exp-desc {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .exp-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .exp-tag {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--accent);
+    background: rgba(0,255,136,0.06);
+    border: 1px solid rgba(0,255,136,0.15);
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .project-card:hover { border-color: rgba(0,255,136,0.2); transform: translateY(-3px); }
+  .project-card:hover::before { transform: scaleX(1); }
+
+  .project-num {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .project-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-desc {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .project-stack {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .project-link {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: opacity 0.2s;
+  }
+
+  .project-link:hover { opacity: 0.7; }
+
+  .project-card.featured {
+    border-color: rgba(0,255,136,0.4);
+    background: linear-gradient(135deg, rgba(0,255,136,0.05) 0%, var(--surface) 60%);
+    grid-column: 1 / -1;
+  }
+
+  .project-card.featured::before { transform: scaleX(1); }
+
+  .featured-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: #000;
+    background: var(--accent);
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-card.featured .project-title { font-size: 1.6rem; }
+
+  .project-card.featured .project-desc {
+    max-width: 680px;
+    font-size: 0.85rem;
+  }
+
+  .featured-highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.25rem 0;
+  }
+
+  .highlight-item {
+    background: rgba(0,255,136,0.05);
+    border: 1px solid rgba(0,255,136,0.15);
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .highlight-item strong { color: var(--accent); display: block; margin-bottom: 0.2rem; font-size: 0.8rem; }
+
+    text-align: center;
+  }
+
+  #contact h2 { margin-bottom: 1rem; }
+
+  .contact-sub {
+    font-family: var(--mono);
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-bottom: 3rem;
+  }
+
+  .contact-email {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 800;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 2px solid rgba(0,255,136,0.3);
+    padding-bottom: 0.25rem;
+    transition: border-color 0.2s;
+    display: inline-block;
+    margin-bottom: 3rem;
+  }
+
+  .contact-email:hover { border-color: var(--accent); }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .social-link {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    transition: color 0.2s;
+  }
+
+  .social-link:hover { color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  footer p {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Cursor glow */
+  .glow {
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,255,136,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    transition: left 0.3s ease, top 0.3s ease;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    section, #hero { padding: 6rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    footer { flex-direction: column; gap: 1rem; padding: 2rem 1.5rem; }
+    .hero-stats { flex-wrap: wrap; gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="glow" id="glow"></div>
+
+<nav>
+  <div class="nav-logo">// AKHILJITH_R</div>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-label">// FRONTEND DEVELOPER · REACTJS / TYPESCRIPT / NEXTJS</div>
+  <h1 class="hero-name">
+    Akhiljith R<br>
+    <span>Frontend Dev.</span>
+  </h1>
+  <p class="hero-tagline">Crafting pixel-perfect, performant web interfaces at Edstem Technologies. Specialising in React, TypeScript, and scalable UI architectures.</p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">View My Work</a>
+    <a href="#contact" class="btn btn-outline">Get in Touch</a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">5+</div>
+      <div class="stat-label">PROJECTS SHIPPED</div>
+    </div>
+    <div>
+      <div class="stat-num">3+</div>
+      <div class="stat-label">YEARS EXPERIENCE</div>
+    </div>
+    <div>
+      <div class="stat-num">1</div>
+      <div class="stat-label">COMPANY (EDSTEM)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header reveal">
+    <div class="section-tag">01 / ABOUT</div>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="reveal">A bit about me</h2>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>Hi! I'm <strong>Akhiljith R</strong>, a Frontend Developer specialising in <strong>ReactJS, TypeScript, and Next.js</strong>. I currently work at Edstem Technologies Pvt Ltd, where I build production-grade web applications for diverse clients.</p>
+      <p>I focus on crafting <strong>clean, reusable UI components</strong>, implementing robust state management, and seamlessly integrating REST APIs. I'm passionate about translating Figma designs into responsive, accessible interfaces that delight users.</p>
+      <p>I thrive in agile environments, collaborating closely with backend developers, designers, and business stakeholders to deliver high-quality software on schedule.</p>
+    </div>
+    <div class="about-card reveal">
+      <div class="about-card-title">// QUICK INFO</div>
+      <div class="info-row">
+        <span class="info-label">role</span>
+        <span class="info-value">Frontend Developer</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">specialisation</span>
+        <span class="info-value">React / TypeScript / Next.js</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">email</span>
+        <span class="info-value"><a href="mailto:akhiljithpkd@gmail.com" style="color:inherit;text-decoration:none;">akhiljithpkd@gmail.com</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header reveal">
+    <div class="section-tag">02 / SKILLS</div>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="reveal">Technical Stack</h2>
+  <div class="skills-grid" style="margin-top:2rem">
+    <div class="skill-category reveal">
+      <div class="skill-cat-title">// CORE FRAMEWORKS</div>
+      <div class="skill-tags">
+        <span class="skill-tag">React</span>
+        <span class="skill-tag">Next.js</span>
+        <span class="skill-tag">TypeScript</span>
+        <span class="skill-tag">JavaScript (ES6+)</span>
+      </div>
+    </div>
+    <div class="skill-category reveal">
+      <div class="skill-cat-title">// STATE MANAGEMENT</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Redux</span>
+        <span class="skill-tag">Context API</span>
+        <span class="skill-tag">React Query</span>
+      </div>
+    </div>
+    <div class="skill-category reveal">
+      <div class="skill-cat-title">// STYLING</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Styled Components</span>
+        <span class="skill-tag">Tailwind CSS</span>
+        <span class="skill-tag">CSS3 / HTML5</span>
+        <span class="skill-tag">Responsive Design</span>
+      </div>
+    </div>
+    <div class="skill-category reveal">
+      <div class="skill-cat-title">// TOOLS & WORKFLOW</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Vite</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">Jira</span>
+        <span class="skill-tag">Figma</span>
+      </div>
+    </div>
+    <div class="skill-category reveal">
+      <div class="skill-cat-title">// INTEGRATION</div>
+      <div class="skill-tags">
+        <span class="skill-tag">REST APIs</span>
+        <span class="skill-tag">Axios</span>
+        <span class="skill-tag">WebSockets</span>
+      </div>
+    </div>
+    <div class="skill-category reveal">
+      <div class="skill-cat-title">// PRACTICES</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Agile / Scrum</span>
+        <span class="skill-tag">Code Review</span>
+        <span class="skill-tag">UI/UX Collaboration</span>
+        <span class="skill-tag">Debugging</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header reveal">
+    <div class="section-tag">03 / EXPERIENCE</div>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="reveal">Work History</h2>
+  <div class="exp-list" style="margin-top:2rem">
+    <div class="exp-item reveal">
+      <div class="exp-date">Present</div>
+      <div>
+        <div class="exp-role">Frontend Developer</div>
+        <div class="exp-company">Edstem Technologies Pvt Ltd</div>
+        <div class="exp-desc">Working across multiple client-facing SaaS and government projects, developing reusable React component libraries, integrating REST APIs, and collaborating with cross-functional teams. Consistently translate Figma prototypes into responsive, production-ready interfaces while contributing to state management architectures.</div>
+        <div class="exp-tags">
+          <span class="exp-tag">React</span>
+          <span class="exp-tag">TypeScript</span>
+          <span class="exp-tag">Next.js</span>
+          <span class="exp-tag">Redux</span>
+          <span class="exp-tag">Tailwind CSS</span>
+          <span class="exp-tag">Figma</span>
+          <span class="exp-tag">Jira</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header reveal">
+    <div class="section-tag">04 / PROJECTS</div>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="reveal">Case Studies</h2>
+  <div class="projects-grid" style="margin-top:2rem">
+
+    <!-- e-niyamasabha FEATURED -->
+    <div class="project-card featured reveal">
+      <div class="featured-badge">★ HIGHLIGHTED PROJECT</div>
+      <div class="project-num">PROJECT_01</div>
+      <div class="project-title">e-Niyamasabha</div>
+      <div class="project-desc">A digital legislative management platform built for a State Legislative Assembly, enabling paperless proceedings, digital bill management, member attendance tracking, and real-time session monitoring. A landmark e-governance initiative modernising the legislative process.</div>
+      <div class="featured-highlights">
+        <div class="highlight-item"><strong>Domain</strong> e-Governance / GovTech</div>
+        <div class="highlight-item"><strong>Impact</strong> Fully paperless legislative sessions</div>
+        <div class="highlight-item"><strong>Features</strong> Bill tracking, attendance, session management</div>
+        <div class="highlight-item"><strong>Scale</strong> State-level government deployment</div>
+      </div>
+      <div class="project-footer">
+        <div class="project-stack">
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">WebSockets</span>
+          <span class="skill-tag">Module Federation</span>
+          <span class="skill-tag">Micro-frontends</span>
+          <span class="skill-tag">REST APIs</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RetroFlow -->
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT_02</div>
+      <div class="project-title">RetroFlow</div>
+      <div class="project-desc">A SaaS platform enabling agile teams to effectively manage and run Sprint Retrospectives in one place. Built frontend screens and reusable React components from scratch, contributed to state management, and integrated REST APIs in close collaboration with backend and business teams.</div>
+      <div class="project-footer">
+        <div class="project-stack">
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">Redux</span>
+          <span class="skill-tag">Styled Components</span>
+          <span class="skill-tag">Tailwind CSS</span>
+          <span class="skill-tag">Vite</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bloom -->
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT_03</div>
+      <div class="project-title">Bloom Console</div>
+      <div class="project-desc">An HR management system featuring employee onboarding, employee & project management, timesheet entry, leave management, and a tech-desk module. Developed responsive UI with ReactJS reusable components and Styled Components, with a focus on clean code and bug-free delivery.</div>
+      <div class="project-footer">
+        <div class="project-stack">
+          <span class="skill-tag">ReactJS</span>
+          <span class="skill-tag">Styled Components</span>
+          <span class="skill-tag">REST APIs</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TDMS -->
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT_04</div>
+      <div class="project-title">TDMS</div>
+      <div class="project-desc">A Training & Development Management System that streamlines the end-to-end lifecycle of employee training programmes — from scheduling and enrolment to progress tracking and reporting. Built with a focus on intuitive workflows and responsive UI for enterprise-scale usage.</div>
+      <div class="project-footer">
+        <div class="project-stack">
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">REST APIs</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal" style="justify-content:center">
+    <div class="section-tag">05 / CONTACT</div>
+  </div>
+  <h2 class="reveal">Let's build something</h2>
+  <p class="contact-sub reveal">Have a project in mind or just want to chat? My inbox is always open.</p>
+  <a href="mailto:akhiljithpkd@gmail.com" class="contact-email reveal">akhiljithpkd@gmail.com</a>
+  <div class="social-links reveal">
+    <a href="https://github.com/Akhiljith1111" class="social-link" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/akhiljith-r-6435aa195/" class="social-link" target="_blank">LinkedIn</a>
+    <a href="#" class="social-link">Resume ↓</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Akhiljith R. Built with care.</p>
+</footer>
+
+<script>
+  // Smooth scroll for nav links — works on all browsers including file:// 
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const navHeight = document.querySelector('nav').offsetHeight;
+        const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 20;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Active nav link highlight on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  function setActiveNav() {
+    const scrollY = window.scrollY;
+    sections.forEach(section => {
+      const top = section.offsetTop - 120;
+      const bottom = top + section.offsetHeight;
+      if (scrollY >= top && scrollY < bottom) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`.nav-links a[href="#${section.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', setActiveNav);
+
+  // Cursor glow
+  const glow = document.getElementById('glow');
+  document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Also immediately reveal anything already in viewport on load
+  document.querySelectorAll('.reveal').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight) {
+      el.classList.add('visible');
+    }
+  });
+</script>
+</body>
+</html>
