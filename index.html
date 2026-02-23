@@ -953,7 +953,8 @@
       .sk-3 { grid-column: span 2; }
       .sk-4 { grid-column: span 2; }
       .sk-5 { grid-column: span 2; }
-      .sk-6 { grid-column: span 6; }
+      .sk-6 { grid-column: span 3; }
+      .sk-7 { grid-column: span 3; }
 
       .c1::before { background: var(--grad-1); } .c1:hover { border-color: rgba(var(--rgb-sky), 0.38); }
       .c2::before { background: var(--grad-2); } .c2:hover { border-color: rgba(var(--rgb-indigo), 0.38); }
@@ -1585,6 +1586,7 @@
       .stagger.visible > *:nth-child(4)  { opacity: 1; transform: none; transition-delay: 0.22s; }
       .stagger.visible > *:nth-child(5)  { opacity: 1; transform: none; transition-delay: 0.28s; }
       .stagger.visible > *:nth-child(6)  { opacity: 1; transform: none; transition-delay: 0.34s; }
+      .stagger.visible > *:nth-child(7)  { opacity: 1; transform: none; transition-delay: 0.40s; }
 
       @supports (animation-timeline: scroll()) {
         .scroll-driven {
@@ -1599,7 +1601,7 @@
         #hero { grid-template-columns: 1fr; }
         .hero-right { display: none; }
         .skills-bento { grid-template-columns: repeat(2, 1fr); }
-        .sk-1, .sk-2, .sk-3, .sk-4, .sk-5, .sk-6 { grid-column: span 1; }
+        .sk-1, .sk-2, .sk-3, .sk-4, .sk-5, .sk-6, .sk-7 { grid-column: span 1; }
         .pc-a, .pc-b { grid-column: span 6; }
       }
 
@@ -1614,12 +1616,256 @@
         footer { flex-direction: column; gap: 1rem; padding: 2rem 1.5rem; text-align: center; }
         .skills-bento { grid-template-columns: 1fr; }
         .projects-bento { grid-template-columns: 1fr; }
-        .pc-feat, .pc-a, .pc-b, .pc-c { grid-column: span 1; }
+        .pc-feat, .pc-a, .pc-b, .pc-c, .project-card { grid-column: span 1; }
         .cursor-dot, .cursor-ring { display: none; }
         body { cursor: auto; }
         .contact-inner { padding: 2rem; }
         .theme-switcher { bottom: 1.25rem; right: 1.25rem; }
       }
+
+      /* ══════════════════════════════════════
+         HAMBURGER / MOBILE NAV
+         ══════════════════════════════════════ */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        background: none;
+        border: none;
+        padding: 0.4rem;
+        cursor: none;
+        z-index: 200;
+      }
+      .hamburger span {
+        width: 24px;
+        height: 2px;
+        background: var(--sky);
+        border-radius: 2px;
+        display: block;
+        transition: all 0.3s cubic-bezier(.4,0,.2,1);
+      }
+      .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+      .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+      .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+      .mobile-nav {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(var(--rgb-bg), 0.97);
+        backdrop-filter: blur(32px);
+        z-index: 98;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2.5rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .mobile-nav.open { opacity: 1; }
+      .mobile-nav a {
+        font-family: var(--sans);
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: var(--text-muted);
+        text-decoration: none;
+        letter-spacing: 0.02em;
+        transition: color 0.2s, transform 0.2s;
+        cursor: none;
+      }
+      .mobile-nav a:hover { color: var(--sky); transform: translateX(8px); }
+
+      @media (max-width: 1024px) {
+        .hamburger { display: flex; }
+        .nav-links { display: none !important; }
+      }
+
+      /* ══════════════════════════════════════
+         BACK TO TOP
+         ══════════════════════════════════════ */
+      #back-to-top {
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%) translateY(80px);
+        background: var(--surface);
+        border: 1px solid var(--border-bright);
+        color: var(--sky);
+        border-radius: 100px;
+        padding: 0.55rem 1.25rem;
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        cursor: none;
+        opacity: 0;
+        transition: transform 0.4s cubic-bezier(.4,0,.2,1), opacity 0.4s, background 0.2s;
+        z-index: 90;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      }
+      #back-to-top.visible { transform: translateX(-50%) translateY(0); opacity: 1; }
+      #back-to-top:hover { background: rgba(var(--rgb-sky), 0.12); }
+
+      /* ══════════════════════════════════════
+         AVAILABILITY BADGE
+         ══════════════════════════════════════ */
+      .availability-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        color: #4ade80;
+        letter-spacing: 0.1em;
+        margin-top: 1.75rem;
+        padding: 0.45rem 1.1rem;
+        background: rgba(74, 222, 128, 0.07);
+        border: 1px solid rgba(74, 222, 128, 0.22);
+        border-radius: 100px;
+        width: fit-content;
+        opacity: 0;
+        animation: fadeUp 0.8s 1.6s forwards;
+      }
+      .avail-dot {
+        width: 7px; height: 7px;
+        background: #4ade80;
+        border-radius: 50%;
+        flex-shrink: 0;
+        animation: availPulse 2s ease-in-out infinite;
+      }
+      @keyframes availPulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6); }
+        50%       { box-shadow: 0 0 0 7px rgba(74, 222, 128, 0); }
+      }
+
+      /* ══════════════════════════════════════
+         PROJECT PREVIEW IMAGES
+         ══════════════════════════════════════ */
+      .project-preview {
+        position: absolute;
+        top: 0; right: 0; bottom: 0;
+        width: 42%;
+        transform: translateX(102%);
+        transition: transform 0.42s cubic-bezier(.4,0,.2,1);
+        border-left: 1px solid var(--border);
+        background: rgba(var(--rgb-bg), 0.82);
+        backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.25rem;
+        z-index: 3;
+        border-radius: 0 22px 22px 0;
+      }
+      .project-card:hover .project-preview { transform: translateX(0); }
+      .project-preview svg { width: 100%; height: auto; border-radius: 8px; }
+      @media (max-width: 768px) { .project-preview { display: none; } }
+
+      /* ══════════════════════════════════════
+         PROFICIENCY BARS
+         ══════════════════════════════════════ */
+      .proficiency-section {
+        margin-top: 3rem;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 2.25rem;
+        backdrop-filter: blur(20px);
+        position: relative;
+        overflow: hidden;
+      }
+      .proficiency-section::after {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: var(--grad-3);
+        border-radius: 20px 20px 0 0;
+      }
+      .proficiency-title {
+        font-family: var(--mono);
+        font-size: 0.63rem;
+        color: var(--sky-light);
+        letter-spacing: 0.22em;
+        margin-bottom: 1.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .proficiency-title::before {
+        content: "";
+        width: 22px; height: 2px;
+        background: var(--grad-3);
+        border-radius: 2px;
+        flex-shrink: 0;
+      }
+      .proficiency-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.1rem 3rem;
+      }
+      .prof-item { display: flex; flex-direction: column; gap: 0.45rem; }
+      .prof-header {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.83rem;
+        color: var(--text-muted);
+      }
+      .prof-header span:last-child { font-family: var(--mono); color: var(--sky-light); font-size: 0.75rem; }
+      .prof-bar-bg {
+        height: 4px;
+        background: rgba(var(--rgb-sky), 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .prof-bar-fill {
+        height: 100%;
+        background: var(--grad-1);
+        border-radius: 4px;
+        width: 0%;
+        transition: width 1.4s cubic-bezier(.4,0,.2,1);
+      }
+      @media (max-width: 768px) { .proficiency-grid { grid-template-columns: 1fr; } }
+
+      /* ══════════════════════════════════════
+         PROJECT FILTER TABS
+         ══════════════════════════════════════ */
+      .project-filters {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+      }
+      .filter-btn {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        padding: 0.45rem 1rem;
+        border-radius: 100px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--text-muted);
+        cursor: none;
+        transition: all 0.22s ease;
+      }
+      .filter-btn:hover, .filter-btn.active {
+        background: rgba(var(--rgb-sky), 0.12);
+        border-color: rgba(var(--rgb-sky), 0.4);
+        color: var(--sky);
+      }
+      .filter-btn.active { font-weight: 600; }
+      .project-card.hidden {
+        display: none;
+      }
+      .project-card {
+        transition: opacity 0.35s ease, transform 0.35s ease;
+      }
+
     </style>
   </head>
   <body>
@@ -1658,6 +1904,12 @@
           <span id="tsModeLbl">Light Mode</span>
         </button>
         <p class="ts-section-label" style="margin-top:0.2rem; opacity:0.6">Press <kbd style="font-family:var(--mono);background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:0.1rem 0.4rem;">T</kbd> to toggle</p>
+        <div class="ts-divider"></div>
+        <p class="ts-section-label">EFFECTS</p>
+        <button class="ts-mode-btn" id="tsParticleBtn">
+          <span class="ts-mode-icon">✦</span>
+          <span id="tsParticleLbl">Particles On</span>
+        </button>
       </div>
       <button class="ts-toggle" id="tsToggle" aria-label="Customize theme">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -1683,7 +1935,21 @@
         <li><a href="#projects">projects</a></li>
         <li><a href="#contact">contact</a></li>
       </ul>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </nav>
+
+    <!-- Mobile nav overlay -->
+    <div class="mobile-nav" id="mobileNav">
+      <a href="#about"      class="mobile-link">about</a>
+      <a href="#skills"     class="mobile-link">skills</a>
+      <a href="#experience" class="mobile-link">experience</a>
+      <a href="#projects"   class="mobile-link">projects</a>
+      <a href="#contact"    class="mobile-link">contact</a>
+    </div>
 
     <!-- ── HERO ── -->
     <section id="hero">
@@ -1817,6 +2083,7 @@
           <div class="skill-tags">
             <span class="skill-tag">Tailwind CSS</span>
             <span class="skill-tag">Styled Components</span>
+            <span class="skill-tag">Bootstrap</span>
             <span class="skill-tag">CSS3 / HTML5</span>
             <span class="skill-tag">Responsive Design</span>
           </div>
@@ -1831,6 +2098,7 @@
             <span class="skill-tag">Git / GitHub</span>
             <span class="skill-tag">Figma</span>
             <span class="skill-tag">Jira</span>
+            <span class="skill-tag">Docker</span>
           </div>
         </div>
         <div class="skill-category c5 sk-5">
@@ -1858,6 +2126,49 @@
             <span class="skill-tag">Module Federation</span>
             <span class="skill-tag">Accessibility (a11y)</span>
             <span class="skill-tag">Performance Optimization</span>
+          </div>
+        </div>
+        <div class="skill-category c7 sk-7">
+          <div class="skill-cat-header">
+            <div class="skill-cat-title">// DATABASES & BACKEND</div>
+            <span class="skill-cat-icon">🗄️</span>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">Prisma</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Proficiency bars -->
+      <div class="proficiency-section reveal">
+        <div class="proficiency-title">PROFICIENCY LEVELS</div>
+        <div class="proficiency-grid">
+          <div class="prof-item">
+            <div class="prof-header"><span>React</span><span>99%</span></div>
+            <div class="prof-bar-bg"><div class="prof-bar-fill" data-width="99"></div></div>
+          </div>
+          <div class="prof-item">
+            <div class="prof-header"><span>TypeScript</span><span>99%</span></div>
+            <div class="prof-bar-bg"><div class="prof-bar-fill" data-width="99"></div></div>
+          </div>
+          <div class="prof-item">
+            <div class="prof-header"><span>Next.js</span><span>99%</span></div>
+            <div class="prof-bar-bg"><div class="prof-bar-fill" data-width="99"></div></div>
+          </div>
+          <div class="prof-item">
+            <div class="prof-header"><span>Tailwind CSS</span><span>100%</span></div>
+            <div class="prof-bar-bg"><div class="prof-bar-fill" data-width="100"></div></div>
+          </div>
+          <div class="prof-item">
+            <div class="prof-header"><span>Redux Toolkit</span><span>99%</span></div>
+            <div class="prof-bar-bg"><div class="prof-bar-fill" data-width="99"></div></div>
+          </div>
+          <div class="prof-item">
+            <div class="prof-header"><span>REST APIs / WebSockets</span><span>99%</span></div>
+            <div class="prof-bar-bg"><div class="prof-bar-fill" data-width="99"></div></div>
           </div>
         </div>
       </div>
@@ -1904,11 +2215,107 @@
         <div class="section-line"></div>
       </div>
       <h2 class="reveal">Case <span class="grad-word">Studies</span></h2>
+
+      <!-- Project filter tabs -->
+      <div class="project-filters reveal">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="React">React</button>
+        <button class="filter-btn" data-filter="TypeScript">TypeScript</button>
+        <button class="filter-btn" data-filter="Next.js">Next.js</button>
+        <button class="filter-btn" data-filter="WebSockets">WebSockets</button>
+      </div>
+
       <div class="projects-bento">
 
         <!-- Featured -->
-        <div class="project-card featured pc-feat reveal">
+        <div class="project-card featured pc-feat reveal" data-techs="React WebSockets REST">
           <div class="card-shine"></div>
+          <!-- Preview: e-Niyamasabha -->
+          <div class="project-preview">
+            <svg viewBox="0 0 340 240" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
+              <!-- Browser chrome -->
+              <rect width="340" height="240" fill="#e2e4e8" rx="8"/>
+              <rect width="340" height="26" fill="#cdd0d6" rx="8 8 0 0"/>
+              <circle cx="14" cy="13" r="4.5" fill="#ff5f56"/><circle cx="27" cy="13" r="4.5" fill="#ffbd2e"/><circle cx="40" cy="13" r="4.5" fill="#27c93f"/>
+              <rect x="54" y="7" width="210" height="13" fill="#fff" rx="6"/>
+              <text x="60" y="17" font-size="6.5" fill="#888">e-niyamasabha.gov.in/dashboard</text>
+              <!-- App bg -->
+              <rect x="0" y="26" width="340" height="214" fill="#0a1628"/>
+              <!-- Top nav -->
+              <rect x="0" y="26" width="340" height="28" fill="#060f1e"/>
+              <rect x="7" y="31" width="74" height="17" fill="#112244" rx="3"/>
+              <text x="11" y="43" font-size="7.5" fill="#5599ff" font-weight="700">e-Niyamasabha</text>
+              <text x="92" y="43" font-size="6.5" fill="#3a5a88">Dashboard</text>
+              <text x="138" y="43" font-size="6.5" fill="#5588cc" font-weight="600">Bills</text>
+              <text x="172" y="43" font-size="6.5" fill="#3a5a88">Members</text>
+              <text x="218" y="43" font-size="6.5" fill="#3a5a88">Sessions</text>
+              <circle cx="320" cy="40" r="8" fill="#1e4d9b"/><text x="317" y="44" font-size="7" fill="#fff">A</text>
+              <!-- Sidebar -->
+              <rect x="0" y="54" width="60" height="186" fill="#060d1c"/>
+              <rect x="4" y="61" width="52" height="13" fill="#1e3a6e" rx="3"/>
+              <text x="7" y="71" font-size="6" fill="#4488cc">⊞ Dashboard</text>
+              <text x="7" y="85" font-size="6" fill="#3a5577">📋 Bills</text>
+              <text x="7" y="99" font-size="6" fill="#3a5577">👥 Members</text>
+              <text x="7" y="113" font-size="6" fill="#3a5577">📅 Sessions</text>
+              <text x="7" y="127" font-size="6" fill="#3a5577">📊 Reports</text>
+              <text x="7" y="141" font-size="6" fill="#3a5577">⚙ Settings</text>
+              <!-- Main content -->
+              <text x="68" y="72" font-size="9.5" fill="#fff" font-weight="700">Bill Management</text>
+              <rect x="264" y="60" width="68" height="15" fill="#1e4d9b" rx="4"/>
+              <text x="269" y="71" font-size="6.5" fill="#fff">+ New Bill</text>
+              <!-- Stat cards -->
+              <rect x="68" y="80" width="72" height="36" fill="#0d1f3a" rx="5"/>
+              <text x="72" y="92" font-size="5.5" fill="#5599ff">Total Bills</text>
+              <text x="72" y="107" font-size="12" fill="#fff" font-weight="700">247</text>
+              <rect x="146" y="80" width="72" height="36" fill="#0d1f3a" rx="5"/>
+              <text x="150" y="92" font-size="5.5" fill="#33cc88">Passed</text>
+              <text x="150" y="107" font-size="12" fill="#fff" font-weight="700">189</text>
+              <rect x="224" y="80" width="72" height="36" fill="#0d1f3a" rx="5"/>
+              <text x="228" y="92" font-size="5.5" fill="#ffaa44">Pending</text>
+              <text x="228" y="107" font-size="12" fill="#fff" font-weight="700">43</text>
+              <!-- Table -->
+              <rect x="68" y="122" width="264" height="112" fill="#0d1f3a" rx="6"/>
+              <rect x="68" y="122" width="264" height="17" fill="#081530" rx="6 6 0 0"/>
+              <text x="74" y="134" font-size="6" fill="#4477aa" font-weight="600">BILL NO.</text>
+              <text x="116" y="134" font-size="6" fill="#4477aa" font-weight="600">TITLE</text>
+              <text x="218" y="134" font-size="6" fill="#4477aa" font-weight="600">CATEGORY</text>
+              <text x="282" y="134" font-size="6" fill="#4477aa" font-weight="600">STATUS</text>
+              <!-- Row 1 -->
+              <rect x="68" y="139" width="264" height="15" fill="#0e2240"/>
+              <text x="74" y="150" font-size="5.5" fill="#5599ff">B-2024-001</text>
+              <text x="116" y="150" font-size="5.5" fill="#99bbcc">Finance Amendment Act</text>
+              <text x="218" y="150" font-size="5.5" fill="#99bbcc">Finance</text>
+              <rect x="280" y="141" width="42" height="10" fill="#0d3322" rx="3"/><text x="283" y="149" font-size="5" fill="#33cc88">● Passed</text>
+              <!-- Row 2 -->
+              <rect x="68" y="154" width="264" height="15" fill="#0a1a36"/>
+              <text x="74" y="165" font-size="5.5" fill="#5599ff">B-2024-002</text>
+              <text x="116" y="165" font-size="5.5" fill="#99bbcc">Education Reform Bill</text>
+              <text x="218" y="165" font-size="5.5" fill="#99bbcc">Education</text>
+              <rect x="280" y="156" width="42" height="10" fill="#3a2500" rx="3"/><text x="283" y="164" font-size="5" fill="#ffaa44">● Pending</text>
+              <!-- Row 3 -->
+              <rect x="68" y="169" width="264" height="15" fill="#0e2240"/>
+              <text x="74" y="180" font-size="5.5" fill="#5599ff">B-2024-003</text>
+              <text x="116" y="180" font-size="5.5" fill="#99bbcc">Healthcare Policy 2024</text>
+              <text x="218" y="180" font-size="5.5" fill="#99bbcc">Health</text>
+              <rect x="280" y="171" width="42" height="10" fill="#0d3322" rx="3"/><text x="283" y="179" font-size="5" fill="#33cc88">● Passed</text>
+              <!-- Row 4 -->
+              <rect x="68" y="184" width="264" height="15" fill="#0a1a36"/>
+              <text x="74" y="195" font-size="5.5" fill="#5599ff">B-2024-004</text>
+              <text x="116" y="195" font-size="5.5" fill="#99bbcc">Infrastructure Dev. Act</text>
+              <text x="218" y="195" font-size="5.5" fill="#99bbcc">Public Works</text>
+              <rect x="280" y="186" width="42" height="10" fill="#2a1050" rx="3"/><text x="283" y="194" font-size="5" fill="#aa77ff">● Review</text>
+              <!-- Row 5 -->
+              <rect x="68" y="199" width="264" height="15" fill="#0e2240"/>
+              <text x="74" y="210" font-size="5.5" fill="#5599ff">B-2024-005</text>
+              <text x="116" y="210" font-size="5.5" fill="#99bbcc">Digital Kerala Mission</text>
+              <text x="218" y="210" font-size="5.5" fill="#99bbcc">Technology</text>
+              <rect x="280" y="201" width="42" height="10" fill="#0d3322" rx="3"/><text x="283" y="209" font-size="5" fill="#33cc88">● Passed</text>
+              <!-- Pagination -->
+              <rect x="68" y="214" width="264" height="12" fill="#081530" rx="0 0 6 6"/>
+              <text x="74" y="223" font-size="5.5" fill="#4477aa">Showing 1–5 of 247 bills</text>
+              <text x="284" y="223" font-size="5.5" fill="#4488cc">‹ 1 2 3 ›</text>
+            </svg>
+          </div>
           <div class="featured-badge">★ HIGHLIGHTED PROJECT</div>
           <div class="project-num">PROJECT_01</div>
           <div class="project-title">e-Niyamasabha</div>
@@ -1933,8 +2340,102 @@
         </div>
 
         <!-- RetroFlow -->
-        <div class="project-card pc-a reveal">
+        <div class="project-card pc-a reveal" data-techs="React Redux Tailwind">
           <div class="card-shine"></div>
+          <!-- Preview: RetroFlow -->
+          <div class="project-preview">
+            <svg viewBox="0 0 340 240" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
+              <!-- Browser chrome -->
+              <rect width="340" height="240" fill="#1a1535" rx="10"/>
+              <rect width="340" height="26" fill="#2a2540" rx="10 10 0 0"/>
+              <circle cx="14" cy="13" r="4" fill="#ff5f57"/><circle cx="26" cy="13" r="4" fill="#ffbd2e"/><circle cx="38" cy="13" r="4" fill="#28c840"/>
+              <rect x="52" y="7" width="188" height="12" fill="#1e1a38" rx="6"/>
+              <text x="146" y="16.5" font-size="6" fill="#7a6eaa" text-anchor="middle">app.retroflow.io/sprint/42</text>
+              <!-- Top nav bar -->
+              <rect x="0" y="26" width="340" height="28" fill="#221e42"/>
+              <text x="14" y="44" font-size="9" font-weight="700" fill="#a78bfa">RetroFlow</text>
+              <text x="90" y="44" font-size="6.5" fill="#6d5fa0">Sprint 42 · Q1 2025</text>
+              <rect x="240" y="32" width="55" height="14" fill="#7c3aed" rx="7"/>
+              <text x="267" y="42" font-size="6" fill="#fff" text-anchor="middle">+ Add Card</text>
+              <circle cx="306" cy="39" r="7" fill="#4c1d95"/>
+              <text x="306" y="42" font-size="6" fill="#c4b5fd" text-anchor="middle">AJ</text>
+              <circle cx="318" cy="39" r="7" fill="#1e3a5f"/>
+              <text x="318" y="42" font-size="6" fill="#93c5fd" text-anchor="middle">SK</text>
+              <!-- Column headers -->
+              <!-- Went Well column -->
+              <rect x="8" y="58" width="102" height="175" fill="#1e1b38" rx="8"/>
+              <rect x="8" y="58" width="102" height="22" fill="#2d1b69" rx="8 8 0 0"/>
+              <text x="19" y="72" font-size="7" font-weight="600" fill="#a78bfa">✓  Went Well</text>
+              <text x="96" y="72" font-size="7" fill="#7c3aed" text-anchor="end">4</text>
+              <!-- Card 1 -->
+              <rect x="13" y="84" width="92" height="38" fill="#2a2550" rx="6"/>
+              <rect x="13" y="84" width="3" height="38" fill="#7c3aed" rx="3 0 0 3"/>
+              <text x="21" y="96" font-size="6" font-weight="600" fill="#c4b5fd">CI/CD pipeline speed</text>
+              <text x="21" y="106" font-size="5.5" fill="#7a6eaa">Deploy time cut by 40%</text>
+              <text x="21" y="115" font-size="5.5" fill="#7a6eaa">with GitHub Actions</text>
+              <circle cx="84" cy="117" r="5" fill="#1e1b38"/>
+              <text x="84" y="120" font-size="5" fill="#a78bfa" text-anchor="middle">▲3</text>
+              <!-- Card 2 -->
+              <rect x="13" y="126" width="92" height="34" fill="#241f48" rx="6"/>
+              <rect x="13" y="126" width="3" height="34" fill="#8b5cf6" rx="3 0 0 3"/>
+              <text x="21" y="138" font-size="6" font-weight="600" fill="#c4b5fd">Team collaboration</text>
+              <text x="21" y="148" font-size="5.5" fill="#7a6eaa">Daily standups kept</text>
+              <text x="21" y="156" font-size="5.5" fill="#7a6eaa">everyone aligned</text>
+              <!-- Card 3 -->
+              <rect x="13" y="164" width="92" height="30" fill="#2a2550" rx="6"/>
+              <rect x="13" y="164" width="3" height="30" fill="#6d28d9" rx="3 0 0 3"/>
+              <text x="21" y="176" font-size="6" font-weight="600" fill="#c4b5fd">Code review quality</text>
+              <text x="21" y="186" font-size="5.5" fill="#7a6eaa">PRs merged faster</text>
+              <!-- To Improve column -->
+              <rect x="119" y="58" width="102" height="175" fill="#1c1d2e" rx="8"/>
+              <rect x="119" y="58" width="102" height="22" fill="#1e3a5f" rx="8 8 0 0"/>
+              <text x="130" y="72" font-size="7" font-weight="600" fill="#60a5fa">↑  To Improve</text>
+              <text x="207" y="72" font-size="7" fill="#3b82f6" text-anchor="end">3</text>
+              <!-- Card 1 -->
+              <rect x="124" y="84" width="92" height="38" fill="#1e2d40" rx="6"/>
+              <rect x="124" y="84" width="3" height="38" fill="#3b82f6" rx="3 0 0 3"/>
+              <text x="132" y="96" font-size="6" font-weight="600" fill="#93c5fd">Test coverage gaps</text>
+              <text x="132" y="106" font-size="5.5" fill="#4e6fa0">Unit tests missing on</text>
+              <text x="132" y="115" font-size="5.5" fill="#4e6fa0">3 key modules</text>
+              <circle cx="195" cy="117" r="5" fill="#172036"/>
+              <text x="195" y="120" font-size="5" fill="#60a5fa" text-anchor="middle">▲5</text>
+              <!-- Card 2 -->
+              <rect x="124" y="126" width="92" height="34" fill="#1a2438" rx="6"/>
+              <rect x="124" y="126" width="3" height="34" fill="#2563eb" rx="3 0 0 3"/>
+              <text x="132" y="138" font-size="6" font-weight="600" fill="#93c5fd">Sprint planning time</text>
+              <text x="132" y="148" font-size="5.5" fill="#4e6fa0">Estimation takes</text>
+              <text x="132" y="156" font-size="5.5" fill="#4e6fa0">too long</text>
+              <!-- Card 3 -->
+              <rect x="124" y="164" width="92" height="30" fill="#1e2d40" rx="6"/>
+              <rect x="124" y="164" width="3" height="30" fill="#3b82f6" rx="3 0 0 3"/>
+              <text x="132" y="176" font-size="6" font-weight="600" fill="#93c5fd">Documentation lag</text>
+              <text x="132" y="186" font-size="5.5" fill="#4e6fa0">Docs updated late</text>
+              <!-- Action Items column -->
+              <rect x="230" y="58" width="102" height="175" fill="#1b2318" rx="8"/>
+              <rect x="230" y="58" width="102" height="22" fill="#14532d" rx="8 8 0 0"/>
+              <text x="241" y="72" font-size="7" font-weight="600" fill="#4ade80">✅  Actions</text>
+              <text x="318" y="72" font-size="7" fill="#16a34a" text-anchor="end">3</text>
+              <!-- Card 1 -->
+              <rect x="235" y="84" width="92" height="42" fill="#1c2e1e" rx="6"/>
+              <rect x="235" y="84" width="3" height="42" fill="#16a34a" rx="3 0 0 3"/>
+              <text x="243" y="96" font-size="6" font-weight="600" fill="#86efac">Add unit tests</text>
+              <text x="243" y="106" font-size="5.5" fill="#3d6647">Target 80% coverage</text>
+              <text x="243" y="115" font-size="5.5" fill="#3d6647">by next sprint</text>
+              <rect x="243" y="120" width="30" height="4" fill="#14532d" rx="2"/>
+              <text x="243" y="123.5" font-size="4.5" fill="#4ade80">Assigned: AJ</text>
+              <!-- Card 2 -->
+              <rect x="235" y="130" width="92" height="36" fill="#192319" rx="6"/>
+              <rect x="235" y="130" width="3" height="36" fill="#15803d" rx="3 0 0 3"/>
+              <text x="243" y="142" font-size="6" font-weight="600" fill="#86efac">Planning poker</text>
+              <text x="243" y="152" font-size="5.5" fill="#3d6647">Use estimation tool</text>
+              <text x="243" y="160" font-size="5.5" fill="#3d6647">next sprint</text>
+              <!-- Card 3 -->
+              <rect x="235" y="170" width="92" height="30" fill="#1c2e1e" rx="6"/>
+              <rect x="235" y="170" width="3" height="30" fill="#16a34a" rx="3 0 0 3"/>
+              <text x="243" y="182" font-size="6" font-weight="600" fill="#86efac">Docs update ritual</text>
+              <text x="243" y="192" font-size="5.5" fill="#3d6647">Last 30 min of sprint</text>
+            </svg>
+          </div>
           <div class="project-num">PROJECT_02</div>
           <div class="project-title">RetroFlow</div>
           <div class="project-desc">
@@ -1952,8 +2453,112 @@
         </div>
 
         <!-- Bloom -->
-        <div class="project-card pc-b reveal">
+        <div class="project-card pc-b reveal" data-techs="React REST">
           <div class="card-shine"></div>
+          <!-- Preview: Bloom Console -->
+          <div class="project-preview">
+            <svg viewBox="0 0 340 240" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
+              <!-- Browser chrome -->
+              <rect width="340" height="240" fill="#071a14" rx="10"/>
+              <rect width="340" height="26" fill="#0d2a1e" rx="10 10 0 0"/>
+              <circle cx="14" cy="13" r="4" fill="#ff5f57"/><circle cx="26" cy="13" r="4" fill="#ffbd2e"/><circle cx="38" cy="13" r="4" fill="#28c840"/>
+              <rect x="52" y="7" width="188" height="12" fill="#071a14" rx="6"/>
+              <text x="146" y="16.5" font-size="6" fill="#1a6644" text-anchor="middle">console.bloomhr.io/dashboard</text>
+              <!-- Sidebar -->
+              <rect x="0" y="26" width="68" height="214" fill="#041410"/>
+              <text x="10" y="50" font-size="10" font-weight="700" fill="#22c55e">Bloom</text>
+              <text x="10" y="60" font-size="5.5" fill="#166534">CONSOLE</text>
+              <!-- Sidebar nav items -->
+              <rect x="5" y="68" width="58" height="18" fill="#052e16" rx="5"/>
+              <text x="12" y="80" font-size="6.5" fill="#4ade80">⊞ Dashboard</text>
+              <text x="12" y="98" font-size="6.5" fill="#166534">👤 Employees</text>
+              <text x="12" y="112" font-size="6.5" fill="#166534">📋 Timesheets</text>
+              <text x="12" y="126" font-size="6.5" fill="#166534">🏖 Leave Mgmt</text>
+              <text x="12" y="140" font-size="6.5" fill="#166534">🎯 Projects</text>
+              <text x="12" y="154" font-size="6.5" fill="#166534">🖥 Tech Desk</text>
+              <text x="12" y="168" font-size="6.5" fill="#166534">📊 Reports</text>
+              <!-- Divider -->
+              <rect x="0" y="26" width="1" height="214" fill="#0d3322"/>
+              <rect x="68" y="26" width="1" height="214" fill="#0d3322"/>
+              <!-- Main content area -->
+              <!-- Header bar -->
+              <rect x="69" y="26" width="271" height="28" fill="#071c12"/>
+              <text x="80" y="43" font-size="9" font-weight="600" fill="#f0fdf4">Dashboard</text>
+              <rect x="266" y="31" width="64" height="14" fill="#15803d" rx="7"/>
+              <text x="298" y="41" font-size="5.5" fill="#fff" text-anchor="middle">+ Add Employee</text>
+              <!-- Stat cards row -->
+              <rect x="75" y="60" width="58" height="40" fill="#0d2419" rx="7"/>
+              <text x="86" y="75" font-size="5.5" fill="#4ade80">Total</text>
+              <text x="86" y="84" font-size="5.5" fill="#4ade80">Employees</text>
+              <text x="104" y="96" font-size="12" font-weight="700" fill="#22c55e" text-anchor="middle">248</text>
+
+              <rect x="139" y="60" width="58" height="40" fill="#0d2e14" rx="7"/>
+              <text x="150" y="75" font-size="5.5" fill="#86efac">Active</text>
+              <text x="168" y="84" font-size="10" font-weight="700" fill="#4ade80" text-anchor="middle">231</text>
+              <rect x="150" y="90" width="36" height="7" fill="#052e16" rx="3"/>
+              <text x="168" y="96" font-size="5" fill="#22c55e" text-anchor="middle">93.1% rate</text>
+
+              <rect x="203" y="60" width="58" height="40" fill="#1c1008" rx="7"/>
+              <text x="214" y="75" font-size="5.5" fill="#fb923c">On Leave</text>
+              <text x="232" y="84" font-size="10" font-weight="700" fill="#f97316" text-anchor="middle">17</text>
+              <rect x="214" y="90" width="36" height="7" fill="#431407" rx="3"/>
+              <text x="232" y="96" font-size="5" fill="#fdba74" text-anchor="middle">6.9% today</text>
+
+              <rect x="267" y="60" width="66" height="40" fill="#0c1a2e" rx="7"/>
+              <text x="278" y="72" font-size="5.5" fill="#93c5fd">New This</text>
+              <text x="278" y="80" font-size="5.5" fill="#93c5fd">Month</text>
+              <text x="300" y="92" font-size="10" font-weight="700" fill="#60a5fa" text-anchor="middle">12</text>
+
+              <!-- Dept chart section -->
+              <rect x="75" y="107" width="118" height="126" fill="#0d2419" rx="8"/>
+              <text x="85" y="120" font-size="7" font-weight="600" fill="#4ade80">Department Split</text>
+              <!-- Donut chart -->
+              <circle cx="134" cy="170" r="38" fill="none" stroke="#052e16" stroke-width="16"/>
+              <circle cx="134" cy="170" r="38" fill="none" stroke="#16a34a" stroke-width="16" stroke-dasharray="95 144" stroke-dashoffset="0"/>
+              <circle cx="134" cy="170" r="38" fill="none" stroke="#2563eb" stroke-width="16" stroke-dasharray="55 184" stroke-dashoffset="-95"/>
+              <circle cx="134" cy="170" r="38" fill="none" stroke="#ea580c" stroke-width="16" stroke-dasharray="30 209" stroke-dashoffset="-150"/>
+              <circle cx="134" cy="170" r="38" fill="none" stroke="#9333ea" stroke-width="16" stroke-dasharray="20 219" stroke-dashoffset="-180"/>
+              <circle cx="134" cy="170" r="22" fill="#0d2419"/>
+              <text x="134" y="167" font-size="7" font-weight="700" fill="#4ade80" text-anchor="middle">248</text>
+              <text x="134" y="176" font-size="5" fill="#166534" text-anchor="middle">total</text>
+              <!-- Legend -->
+              <rect x="82" y="206" width="6" height="6" fill="#16a34a" rx="1"/>
+              <text x="90" y="212" font-size="5" fill="#86efac">Eng 38%</text>
+              <rect x="116" y="206" width="6" height="6" fill="#2563eb" rx="1"/>
+              <text x="124" y="212" font-size="5" fill="#93c5fd">HR 22%</text>
+              <rect x="149" y="206" width="6" height="6" fill="#ea580c" rx="1"/>
+              <text x="157" y="212" font-size="5" fill="#fdba74">Sales</text>
+
+              <!-- Recent Activity section -->
+              <rect x="199" y="107" width="134" height="126" fill="#071c12" rx="8"/>
+              <text x="210" y="120" font-size="7" font-weight="600" fill="#4ade80">Recent Activity</text>
+              <!-- Activity items -->
+              <circle cx="216" cy="135" r="7" fill="#052e16"/>
+              <text x="216" y="138" font-size="6.5" fill="#4ade80" text-anchor="middle">RK</text>
+              <text x="228" y="133" font-size="6" font-weight="500" fill="#d1fae5">Rahul K. joined</text>
+              <text x="228" y="141" font-size="5" fill="#166534">Engineering · 2m ago</text>
+
+              <circle cx="216" cy="155" r="7" fill="#0c1a2e"/>
+              <text x="216" y="158" font-size="6.5" fill="#60a5fa" text-anchor="middle">PS</text>
+              <text x="228" y="153" font-size="6" font-weight="500" fill="#d1fae5">Priya S. — Leave</text>
+              <text x="228" y="161" font-size="5" fill="#166534">Approved · 15m ago</text>
+
+              <circle cx="216" cy="175" r="7" fill="#1c1008"/>
+              <text x="216" y="178" font-size="6.5" fill="#fb923c" text-anchor="middle">MA</text>
+              <text x="228" y="173" font-size="6" font-weight="500" fill="#d1fae5">Mohamed A. ticket</text>
+              <text x="228" y="181" font-size="5" fill="#166534">Tech Desk · 1h ago</text>
+
+              <circle cx="216" cy="195" r="7" fill="#052e16"/>
+              <text x="216" y="198" font-size="6.5" fill="#4ade80" text-anchor="middle">LD</text>
+              <text x="228" y="193" font-size="6" font-weight="500" fill="#d1fae5">Lakshmi D. joined</text>
+              <text x="228" y="201" font-size="5" fill="#166534">Design · 3h ago</text>
+
+              <circle cx="216" cy="215" r="7" fill="#0c1a2e"/>
+              <text x="216" y="218" font-size="6.5" fill="#60a5fa" text-anchor="middle">VN</text>
+              <text x="228" y="213" font-size="6" font-weight="500" fill="#d1fae5">Vijay N. timesheet</text>
+              <text x="228" y="221" font-size="5" fill="#166534">Submitted · 5h ago</text>
+            </svg>
+          </div>
           <div class="project-num">PROJECT_03</div>
           <div class="project-title">Bloom Console</div>
           <div class="project-desc">
@@ -1969,18 +2574,213 @@
         </div>
 
         <!-- TDMS -->
-        <div class="project-card pc-c reveal">
+        <div class="project-card pc-a reveal" data-techs="React TypeScript REST">
           <div class="card-shine"></div>
+          <!-- Preview: TDMS -->
+          <div class="project-preview">
+            <svg viewBox="0 0 340 240" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
+              <!-- Browser chrome -->
+              <rect width="340" height="240" fill="#0f0a00" rx="10"/>
+              <rect width="340" height="26" fill="#1e1400" rx="10 10 0 0"/>
+              <circle cx="14" cy="13" r="4" fill="#ff5f57"/><circle cx="26" cy="13" r="4" fill="#ffbd2e"/><circle cx="38" cy="13" r="4" fill="#28c840"/>
+              <rect x="52" y="7" width="188" height="12" fill="#150e00" rx="6"/>
+              <text x="146" y="16.5" font-size="6" fill="#92400e" text-anchor="middle">app.tdms.io/programs</text>
+              <!-- Top nav -->
+              <rect x="0" y="26" width="340" height="30" fill="#1c1200"/>
+              <text x="14" y="46" font-size="10" font-weight="700" fill="#f97316">TDMS</text>
+              <text x="55" y="46" font-size="5.5" fill="#78350f">Talent Development</text>
+              <text x="150" y="46" font-size="6.5" fill="#92400e">Programs</text>
+              <text x="200" y="46" font-size="6.5" fill="#78350f">My Learning</text>
+              <text x="252" y="46" font-size="6.5" fill="#78350f">Reports</text>
+              <text x="290" y="46" font-size="6.5" fill="#78350f">Admin</text>
+              <circle cx="325" cy="41" r="8" fill="#7c2d12"/>
+              <text x="325" y="44" font-size="6" fill="#fed7aa" text-anchor="middle">AJ</text>
+              <!-- Filter bar -->
+              <rect x="0" y="56" width="340" height="24" fill="#160e00"/>
+              <rect x="10" y="61" width="50" height="13" fill="#ea580c" rx="6"/>
+              <text x="35" y="70" font-size="6" fill="#fff" text-anchor="middle">All (24)</text>
+              <rect x="65" y="61" width="62" height="13" fill="#2a1800" rx="6"/>
+              <text x="96" y="70" font-size="6" fill="#9a3412" text-anchor="middle">Leadership (8)</text>
+              <rect x="132" y="61" width="58" height="13" fill="#2a1800" rx="6"/>
+              <text x="161" y="70" font-size="6" fill="#9a3412" text-anchor="middle">Technical (10)</text>
+              <rect x="195" y="61" width="50" height="13" fill="#2a1800" rx="6"/>
+              <text x="220" y="70" font-size="6" fill="#9a3412" text-anchor="middle">Soft Skills (6)</text>
+              <rect x="270" y="61" width="60" height="13" fill="#15803d" rx="6"/>
+              <text x="300" y="70" font-size="6" fill="#fff" text-anchor="middle">+ New Program</text>
+              <!-- Program cards row 1 -->
+              <!-- Card 1 -->
+              <rect x="8" y="85" width="99" height="70" fill="#1c1200" rx="7"/>
+              <rect x="8" y="85" width="99" height="7" fill="#ea580c" rx="7 7 0 0"/>
+              <text x="14" y="103" font-size="6.5" font-weight="600" fill="#fed7aa">Leadership Essentials</text>
+              <text x="14" y="113" font-size="5.5" fill="#78350f">Core management skills</text>
+              <text x="14" y="122" font-size="5.5" fill="#78350f">for team leads</text>
+              <!-- Progress bar -->
+              <rect x="14" y="128" width="74" height="5" fill="#2a1800" rx="2"/>
+              <rect x="14" y="128" width="56" height="5" fill="#f97316" rx="2"/>
+              <text x="90" y="133" font-size="5" fill="#9a3412">75%</text>
+              <text x="14" y="148" font-size="5" fill="#78350f">👥 142 enrolled</text>
+              <rect x="62" y="143" width="38" height="9" fill="#7c2d12" rx="4"/>
+              <text x="81" y="150" font-size="5" fill="#fed7aa" text-anchor="middle">Enroll</text>
+              <!-- Card 2 -->
+              <rect x="113" y="85" width="99" height="70" fill="#1a1100" rx="7"/>
+              <rect x="113" y="85" width="99" height="7" fill="#d97706" rx="7 7 0 0"/>
+              <text x="119" y="103" font-size="6.5" font-weight="600" fill="#fde68a">React Advanced</text>
+              <text x="119" y="113" font-size="5.5" fill="#78350f">Hooks, patterns &amp;</text>
+              <text x="119" y="122" font-size="5.5" fill="#78350f">performance tuning</text>
+              <rect x="119" y="128" width="74" height="5" fill="#2a1800" rx="2"/>
+              <rect x="119" y="128" width="66" height="5" fill="#d97706" rx="2"/>
+              <text x="195" y="133" font-size="5" fill="#9a3412">89%</text>
+              <text x="119" y="148" font-size="5" fill="#78350f">👥 98 enrolled</text>
+              <rect x="167" y="143" width="38" height="9" fill="#7c2d12" rx="4"/>
+              <text x="186" y="150" font-size="5" fill="#fed7aa" text-anchor="middle">Enroll</text>
+              <!-- Card 3 -->
+              <rect x="218" y="85" width="115" height="70" fill="#1c1200" rx="7"/>
+              <rect x="218" y="85" width="115" height="7" fill="#c2410c" rx="7 7 0 0"/>
+              <text x="224" y="103" font-size="6.5" font-weight="600" fill="#fed7aa">Communication Skills</text>
+              <text x="224" y="113" font-size="5.5" fill="#78350f">Presentation &amp; writing</text>
+              <text x="224" y="122" font-size="5.5" fill="#78350f">for professionals</text>
+              <rect x="224" y="128" width="90" height="5" fill="#2a1800" rx="2"/>
+              <rect x="224" y="128" width="45" height="5" fill="#c2410c" rx="2"/>
+              <text x="316" y="133" font-size="5" fill="#9a3412">50%</text>
+              <text x="224" y="148" font-size="5" fill="#78350f">👥 67 enrolled</text>
+              <rect x="276" y="143" width="50" height="9" fill="#7c2d12" rx="4"/>
+              <text x="301" y="150" font-size="5" fill="#fed7aa" text-anchor="middle">In Progress</text>
+              <!-- Program cards row 2 -->
+              <!-- Card 4 -->
+              <rect x="8" y="161" width="99" height="70" fill="#190f00" rx="7"/>
+              <rect x="8" y="161" width="99" height="7" fill="#9a3412" rx="7 7 0 0"/>
+              <text x="14" y="179" font-size="6.5" font-weight="600" fill="#fed7aa">Data Analytics</text>
+              <text x="14" y="189" font-size="5.5" fill="#78350f">Power BI &amp; SQL for</text>
+              <text x="14" y="198" font-size="5.5" fill="#78350f">business insights</text>
+              <rect x="14" y="204" width="74" height="5" fill="#2a1800" rx="2"/>
+              <rect x="14" y="204" width="30" height="5" fill="#9a3412" rx="2"/>
+              <text x="90" y="209" font-size="5" fill="#9a3412">40%</text>
+              <text x="14" y="224" font-size="5" fill="#78350f">👥 53 enrolled</text>
+              <!-- Card 5 -->
+              <rect x="113" y="161" width="99" height="70" fill="#1c1200" rx="7"/>
+              <rect x="113" y="161" width="99" height="7" fill="#b45309" rx="7 7 0 0"/>
+              <text x="119" y="179" font-size="6.5" font-weight="600" fill="#fde68a">Project Management</text>
+              <text x="119" y="189" font-size="5.5" fill="#78350f">Agile &amp; PMP</text>
+              <text x="119" y="198" font-size="5.5" fill="#78350f">certification prep</text>
+              <rect x="119" y="204" width="74" height="5" fill="#2a1800" rx="2"/>
+              <rect x="119" y="204" width="60" height="5" fill="#b45309" rx="2"/>
+              <text x="195" y="209" font-size="5" fill="#9a3412">81%</text>
+              <text x="119" y="224" font-size="5" fill="#78350f">👥 115 enrolled</text>
+              <!-- Card 6 -->
+              <rect x="218" y="161" width="115" height="70" fill="#190f00" rx="7"/>
+              <rect x="218" y="161" width="115" height="7" fill="#7c2d12" rx="7 7 0 0"/>
+              <text x="224" y="179" font-size="6.5" font-weight="600" fill="#fed7aa">TypeScript Mastery</text>
+              <text x="224" y="189" font-size="5.5" fill="#78350f">From basics to advanced</text>
+              <text x="224" y="198" font-size="5.5" fill="#78350f">generics &amp; decorators</text>
+              <rect x="224" y="204" width="90" height="5" fill="#2a1800" rx="2"/>
+              <rect x="224" y="204" width="78" height="5" fill="#7c2d12" rx="2"/>
+              <text x="316" y="209" font-size="5" fill="#9a3412">87%</text>
+              <text x="224" y="224" font-size="5" fill="#78350f">👥 76 enrolled</text>
+            </svg>
+          </div>
           <div class="project-num">PROJECT_04</div>
-          <div class="project-title">TDMS – Training & Development Management System</div>
+          <div class="project-title">TDMS – Talent Development Management System</div>
           <div class="project-desc">
-            Streamlines the end-to-end lifecycle of employee training programmes — from scheduling and enrolment to progress tracking and reporting. Built with a focus on intuitive workflows and responsive UI for enterprise-scale usage.
+            Streamlines the end-to-end lifecycle of employee talent development — from scheduling and enrolment to progress tracking and reporting. Built with a focus on intuitive workflows and responsive UI for enterprise-scale usage.
           </div>
           <div class="project-footer">
             <div class="project-stack">
               <span class="skill-tag">React</span>
               <span class="skill-tag">TypeScript</span>
               <span class="skill-tag">REST APIs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TMC – Trinity Marthoma Church -->
+        <div class="project-card pc-b reveal" data-techs="Next.js React Tailwind REST">
+          <div class="card-shine"></div>
+          <!-- Preview: TMC Church -->
+          <div class="project-preview">
+            <svg viewBox="0 0 340 240" xmlns="http://www.w3.org/2000/svg" font-family="Inter,-apple-system,sans-serif">
+              <!-- Browser chrome -->
+              <rect width="340" height="240" fill="#0e0c08" rx="10"/>
+              <rect width="340" height="26" fill="#1c1810" rx="10 10 0 0"/>
+              <circle cx="14" cy="13" r="4" fill="#ff5f57"/><circle cx="26" cy="13" r="4" fill="#ffbd2e"/><circle cx="38" cy="13" r="4" fill="#28c840"/>
+              <rect x="52" y="7" width="200" height="12" fill="#120f07" rx="6"/>
+              <text x="152" y="16.5" font-size="6" fill="#92400e" text-anchor="middle">trinitymarthomachurch.org</text>
+              <!-- Top navigation bar -->
+              <rect x="0" y="26" width="340" height="30" fill="#1a1508"/>
+              <!-- Cross logo -->
+              <rect x="12" y="31" width="3" height="18" fill="#c8a84b" rx="1"/>
+              <rect x="7" y="36" width="13" height="3" fill="#c8a84b" rx="1"/>
+              <text x="30" y="43" font-size="8" font-weight="700" fill="#c8a84b">Trinity Marthoma</text>
+              <text x="30" y="52" font-size="5.5" fill="#92400e">Church</text>
+              <text x="148" y="43" font-size="6" fill="#a07830">Home</text>
+              <text x="176" y="43" font-size="6" fill="#a07830">About</text>
+              <text x="204" y="43" font-size="6" fill="#a07830">Services</text>
+              <text x="237" y="43" font-size="6" fill="#a07830">Events</text>
+              <text x="266" y="43" font-size="6" fill="#a07830">Gallery</text>
+              <rect x="288" y="33" width="44" height="14" fill="#c8a84b" rx="7"/>
+              <text x="310" y="42" font-size="6" fill="#1a1508" text-anchor="middle" font-weight="600">Donate ♥</text>
+              <!-- Hero section -->
+              <rect x="0" y="56" width="340" height="90" fill="#120f07"/>
+              <!-- Church illustration background -->
+              <rect x="0" y="56" width="340" height="90" fill="#1a1305" opacity="0.9"/>
+              <!-- Simplified church silhouette -->
+              <rect x="145" y="68" width="6" height="50" fill="#3a2e10" rx="1"/>
+              <rect x="130" y="78" width="36" height="6" fill="#3a2e10" rx="1"/>
+              <polygon points="148,62 151,62 151,56 148,56" fill="#c8a84b"/>
+              <rect x="125" y="84" width="46" height="32" fill="#2a2010" rx="2"/>
+              <rect x="135" y="96" width="10" height="20" fill="#1a1508" rx="1"/>
+              <rect x="125" y="84" width="14" height="14" fill="#1e1a0a" rx="1"/>
+              <rect x="157" y="84" width="14" height="14" fill="#1e1a0a" rx="1"/>
+              <!-- Hero text -->
+              <text x="170" y="80" font-size="14" font-weight="700" fill="#c8a84b">Welcome to</text>
+              <text x="170" y="96" font-size="11" font-weight="700" fill="#f5d77a">Trinity Marthoma</text>
+              <text x="170" y="109" font-size="11" font-weight="700" fill="#f5d77a">Church</text>
+              <text x="170" y="122" font-size="6.5" fill="#a07830">Serving the community since 1952</text>
+              <rect x="170" y="130" width="55" height="14" fill="#c8a84b" rx="7"/>
+              <text x="197" y="139" font-size="6" fill="#1a1508" text-anchor="middle" font-weight="600">Join Us Sunday</text>
+              <!-- Service Times section -->
+              <rect x="0" y="146" width="340" height="28" fill="#1a1508"/>
+              <text x="170" y="154" font-size="6" fill="#92400e" text-anchor="middle">⛪  SUNDAY SERVICES</text>
+              <!-- Service time pills -->
+              <rect x="30" y="158" width="60" height="14" fill="#2a2010" rx="7"/>
+              <text x="60" y="167" font-size="6" fill="#c8a84b" text-anchor="middle">8:00 AM</text>
+              <rect x="140" y="158" width="60" height="14" fill="#2a2010" rx="7"/>
+              <text x="170" y="167" font-size="6" fill="#c8a84b" text-anchor="middle">11:00 AM</text>
+              <rect x="250" y="158" width="62" height="14" fill="#2a2010" rx="7"/>
+              <text x="281" y="167" font-size="6" fill="#c8a84b" text-anchor="middle">6:30 PM</text>
+              <!-- Upcoming Events section -->
+              <rect x="0" y="174" width="340" height="66" fill="#120f07"/>
+              <text x="14" y="186" font-size="7" font-weight="600" fill="#c8a84b">Upcoming Events</text>
+              <!-- Event items -->
+              <rect x="10" y="191" width="148" height="18" fill="#1e1a0a" rx="5"/>
+              <rect x="10" y="191" width="4" height="18" fill="#c8a84b" rx="2 0 0 2"/>
+              <text x="20" y="200" font-size="6" font-weight="500" fill="#f5d77a">Christmas Carol Service</text>
+              <text x="20" y="208" font-size="5" fill="#92400e">Dec 24 · 7:00 PM · Main Hall</text>
+              <rect x="164" y="191" width="4" height="18" fill="#c8a84b" rx="2 0 0 2"/>
+              <rect x="164" y="191" width="170" height="18" fill="#1a1608" rx="5"/>
+              <text x="174" y="200" font-size="6" font-weight="500" fill="#f5d77a">Youth Retreat 2025</text>
+              <text x="174" y="208" font-size="5" fill="#92400e">Jan 10–12 · Youth Centre</text>
+
+              <rect x="10" y="213" width="148" height="18" fill="#1e1a0a" rx="5"/>
+              <rect x="10" y="213" width="4" height="18" fill="#a07830" rx="2 0 0 2"/>
+              <text x="20" y="222" font-size="6" font-weight="500" fill="#f5d77a">Prayer Meeting</text>
+              <text x="20" y="230" font-size="5" fill="#92400e">Every Wed · 6:00 PM</text>
+              <rect x="164" y="213" width="170" height="18" fill="#1a1608" rx="5"/>
+              <rect x="164" y="213" width="4" height="18" fill="#a07830" rx="2 0 0 2"/>
+              <text x="174" y="222" font-size="6" font-weight="500" fill="#f5d77a">Annual Feast Day</text>
+              <text x="174" y="230" font-size="5" fill="#92400e">Feb 2 · All Day Event</text>
+            </svg>
+          </div>
+          <div class="project-num">PROJECT_05</div>
+          <div class="project-title">TMC – Trinity Marthoma Church</div>
+          <div class="project-desc">
+            A clean, community-focused web application built for Trinity Marthoma Church. Features include weekly service schedules, church announcements, event calendar, online prayer request submission, gallery, and a member information portal — bringing the congregation closer in the digital space.
+          </div>
+          <div class="project-footer">
+            <div class="project-stack">
+              <span class="skill-tag">Next.js</span>
+              <span class="skill-tag">Tailwind CSS</span>
+              <span class="skill-tag">REST APIs</span>
+              <span class="skill-tag">Responsive Design</span>
             </div>
           </div>
         </div>
@@ -2008,6 +2808,9 @@
         </div>
       </div>
     </section>
+
+    <!-- Back to top -->
+    <button id="back-to-top" aria-label="Back to top">↑ TOP</button>
 
     <footer>
       <p>© 2026 Akhiljith R. Built with care.</p>
@@ -2117,6 +2920,17 @@
         applyTheme(currentTheme, newMode);
         syncModeBtn();
         showToast(newMode === 'light' ? 'Light Mode' : 'Dark Mode');
+      });
+
+      // ── PARTICLES TOGGLE ──
+      let particlesOn = true;
+      const tsParticleBtn = document.getElementById('tsParticleBtn');
+      const tsParticleLbl = document.getElementById('tsParticleLbl');
+      tsParticleBtn.addEventListener('click', () => {
+        particlesOn = !particlesOn;
+        canvas.style.opacity = particlesOn ? '1' : '0';
+        tsParticleLbl.textContent = particlesOn ? 'Particles On' : 'Particles Off';
+        showToast(particlesOn ? 'Particles On' : 'Particles Off');
       });
 
       // Sync on load
@@ -2381,6 +3195,90 @@
             this.style.transition = '';
           }, 120);
         });
+      });
+
+      // ══════════════════════════════════════
+      //  MOBILE HAMBURGER MENU
+      // ══════════════════════════════════════
+      const hamburger = document.getElementById('hamburger');
+      const mobileNav = document.getElementById('mobileNav');
+
+      hamburger.addEventListener('click', () => {
+        const isOpen = hamburger.classList.toggle('open');
+        if (isOpen) {
+          mobileNav.style.display = 'flex';
+          requestAnimationFrame(() => mobileNav.classList.add('open'));
+          document.body.style.overflow = 'hidden';
+        } else {
+          mobileNav.classList.remove('open');
+          document.body.style.overflow = '';
+          setTimeout(() => { mobileNav.style.display = 'none'; }, 300);
+        }
+      });
+
+      document.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.classList.remove('open');
+          mobileNav.classList.remove('open');
+          document.body.style.overflow = '';
+          setTimeout(() => { mobileNav.style.display = 'none'; }, 300);
+        });
+      });
+
+      // ══════════════════════════════════════
+      //  BACK TO TOP
+      // ══════════════════════════════════════
+      const backToTop = document.getElementById('back-to-top');
+      window.addEventListener('scroll', () => {
+        backToTop.classList.toggle('visible', window.scrollY > 500);
+      }, { passive: true });
+      backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // ══════════════════════════════════════
+      //  PROFICIENCY BAR ANIMATION
+      // ══════════════════════════════════════
+      const profSection = document.querySelector('.proficiency-section');
+      if (profSection) {
+        const profObs = new IntersectionObserver(entries => {
+          entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            e.target.querySelectorAll('.prof-bar-fill').forEach((bar, i) => {
+              setTimeout(() => { bar.style.width = bar.dataset.width + '%'; }, i * 100);
+            });
+            profObs.unobserve(e.target);
+          });
+        }, { threshold: 0.25 });
+        profObs.observe(profSection);
+      }
+
+      // ══════════════════════════════════════
+      //  PROJECT FILTER TABS
+      // ══════════════════════════════════════
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const projectCards = document.querySelectorAll('.project-card');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const filter = btn.dataset.filter;
+          projectCards.forEach(card => {
+            const techs = card.dataset.techs || '';
+            if (filter === 'all' || techs.includes(filter)) {
+              card.classList.remove('hidden');
+            } else {
+              card.classList.add('hidden');
+            }
+          });
+        });
+      });
+
+      // Add filter buttons to hovering state for custom cursor
+      document.querySelectorAll('.filter-btn').forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
       });
     </script>
   </body>
