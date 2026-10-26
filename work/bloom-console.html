@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bloom Console · Case study · Akhiljith R</title>
+    <meta name="description" content="One HR console that brings onboarding, projects, timesheets, leave and tech-desk requests together." />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='3' y='3' width='58' height='58' rx='14' fill='%23f2b134' stroke='%2310302a' stroke-width='5'/%3E%3Ctext x='50%25' y='70%25' text-anchor='middle' font-family='Arial' font-weight='900' font-size='36' fill='%2310302a'%3EA%3C/text%3E%3C/svg%3E"
+    />
+    <script>
+      document.documentElement.classList.add("js");
+      try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch {}
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Caveat:wght@600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="nav" id="nav">
+      <div class="wrap nav-inner">
+        <a href="../index.html" class="logo">akhiljith<span> ✦</span></a>
+        <ul class="nav-links">
+          <li><a href="../index.html#skills">Skills</a></li>
+          <li><a href="../index.html#work">Work</a></li>
+          <li><a href="../index.html#about">About</a></li>
+        </ul>
+        <div class="nav-actions">
+          <div class="seg" role="group" aria-label="Colour theme">
+            <button type="button" data-theme-set="light" aria-pressed="true">☀<span class="lbl"> Light</span></button>
+            <button type="button" data-theme-set="dark" aria-pressed="false">☾<span class="lbl"> Dark</span></button>
+          </div>
+          <a href="../index.html#contact" class="btn btn-primary">Let's talk</a>
+          <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+    <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile">
+      <a href="../index.html#skills">Skills</a>
+      <a href="../index.html#work">Work</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#contact">Let's talk →</a>
+    </nav>
+
+    <main id="main">
+      <header class="cs-head">
+        <div class="wrap">
+          <a href="../index.html#work" class="back">← All work</a>
+          <div class="kicker"><b>Case study</b> · HR management</div>
+          <h1>Bloom Console</h1>
+          <p class="lede">One HR console that brings onboarding, projects, timesheets, leave and tech-desk requests together.</p>
+          <dl class="sticker cs-facts"><div><dt>Role</dt><dd>Frontend engineer</dd></div><div><dt>Built at</dt><dd>Edstem Technologies</dd></div><div><dt>Type</dt><dd>HR platform</dd></div><div><dt>Stack</dt><dd>React · Styled Components</dd></div></dl>
+        </div>
+      </header>
+
+      <div class="wrap">
+        <figure class="sticker cs-hero reveal" style="background: var(--tint-4)">
+          <svg class="mock" viewBox="0 0 320 210" role="img" aria-label="Illustrative mockup of an HR dashboard with stats, chart and leave calendar" font-family="JetBrains Mono, monospace">
+                  <rect x="1" y="1" width="318" height="208" rx="10" fill="var(--screen)" stroke="var(--ink)" stroke-width="2" />
+                  <path d="M1 24h318" stroke="var(--ink)" stroke-width="2" />
+                  <circle cx="14" cy="12.5" r="3.5" fill="var(--coral)" /><circle cx="26" cy="12.5" r="3.5" fill="var(--acc)" /><circle cx="38" cy="12.5" r="3.5" fill="var(--leaf)" />
+                  <rect x="14" y="36" width="90" height="44" rx="6" fill="var(--tint-4)" stroke="var(--ink)" stroke-width="1.5" />
+                  <rect x="114" y="36" width="90" height="44" rx="6" fill="var(--tint-3)" stroke="var(--ink)" stroke-width="1.5" />
+                  <rect x="214" y="36" width="92" height="44" rx="6" fill="var(--tint-1)" stroke="var(--ink)" stroke-width="1.5" />
+                  <text x="22" y="52" font-size="7" fill="#10302a">Employees</text><text x="22" y="70" font-size="14" font-weight="700" fill="#10302a">128</text>
+                  <text x="122" y="52" font-size="7" fill="#10302a">On leave</text><text x="122" y="70" font-size="14" font-weight="700" fill="#10302a">6</text>
+                  <text x="222" y="52" font-size="7" fill="#10302a">Hours / wk</text><text x="222" y="70" font-size="14" font-weight="700" fill="#10302a">4.9k</text>
+                  <rect x="14" y="90" width="170" height="108" rx="6" fill="none" stroke="var(--ink)" stroke-opacity=".25" stroke-width="1.5" />
+                  <g fill="var(--leaf)"><rect x="28" y="150" width="14" height="36" rx="2" /><rect x="50" y="130" width="14" height="56" rx="2" /><rect x="72" y="140" width="14" height="46" rx="2" /><rect x="94" y="116" width="14" height="70" rx="2" /><rect x="116" y="126" width="14" height="60" rx="2" /><rect x="138" y="108" width="14" height="78" rx="2" fill="var(--acc)" /><rect x="160" y="136" width="14" height="50" rx="2" /></g>
+                  <rect x="194" y="90" width="112" height="108" rx="6" fill="none" stroke="var(--ink)" stroke-opacity=".25" stroke-width="1.5" />
+                  <g fill="var(--ink)" opacity=".12">
+                    <rect x="202" y="104" width="12" height="12" rx="2" /><rect x="218" y="104" width="12" height="12" rx="2" /><rect x="234" y="104" width="12" height="12" rx="2" /><rect x="250" y="104" width="12" height="12" rx="2" /><rect x="266" y="104" width="12" height="12" rx="2" /><rect x="282" y="104" width="12" height="12" rx="2" />
+                    <rect x="202" y="120" width="12" height="12" rx="2" /><rect x="234" y="120" width="12" height="12" rx="2" /><rect x="250" y="120" width="12" height="12" rx="2" /><rect x="266" y="120" width="12" height="12" rx="2" /><rect x="282" y="120" width="12" height="12" rx="2" />
+                    <rect x="202" y="136" width="12" height="12" rx="2" /><rect x="218" y="136" width="12" height="12" rx="2" /><rect x="234" y="136" width="12" height="12" rx="2" /><rect x="266" y="136" width="12" height="12" rx="2" /><rect x="282" y="136" width="12" height="12" rx="2" />
+                    <rect x="202" y="152" width="12" height="12" rx="2" /><rect x="218" y="152" width="12" height="12" rx="2" /><rect x="234" y="152" width="12" height="12" rx="2" /><rect x="250" y="152" width="12" height="12" rx="2" /><rect x="282" y="152" width="12" height="12" rx="2" />
+                  </g>
+                  <rect x="218" y="120" width="12" height="12" rx="2" fill="var(--coral)" />
+                  <rect x="250" y="136" width="12" height="12" rx="2" fill="var(--acc)" />
+                  <rect x="266" y="152" width="12" height="12" rx="2" fill="var(--leaf)" />
+                </svg>
+          <figcaption>Illustrative mockup. The real product is client work under NDA.</figcaption>
+        </figure>
+      </div>
+
+      <div class="cs-body">
+        <div class="wrap">
+          <section class="cs-sec reveal">
+            <h2><b>01</b> The problem</h2>
+            <div class="content"><p>HR work was spread across separate tools: onboarding checklists in one place, timesheets in another, and leave requests over email.</p><p>The team needed one console where every module, from the employee's first day to their weekly timesheet, felt like the same product.</p></div>
+          </section>
+
+          <section class="cs-sec reveal">
+            <h2><b>02</b> What I built</h2>
+            <div class="content">
+              <div class="built"><article class="sticker lift"><span class="tag">Module</span><h3>Employee onboarding</h3><p>Guided onboarding flows so new joiners and HR can see what's done and what's pending.</p></article><article class="sticker lift"><span class="tag">Module</span><h3>Projects &amp; timesheets</h3><p>Project allocation and timesheet entry in one place, ready for reporting.</p></article><article class="sticker lift"><span class="tag">Module</span><h3>Leave management</h3><p>Requests, approvals and a team leave calendar, replacing email threads.</p></article><article class="sticker lift"><span class="tag">Module</span><h3>Tech desk</h3><p>IT and tech-desk requests raised and tracked inside the same console.</p></article></div>
+              
+            </div>
+          </section>
+
+          <section class="cs-sec reveal">
+            <h2><b>03</b> Outcome</h2>
+            <div class="content">
+              <div class="sticker outcome">
+                Five HR workflows brought into a single, consistent console.
+                <ul><li>Onboarding, projects, timesheets, leave and tech desk in one app</li><li>Shared styled components across every module</li><li>Employees on the platform: <span class="metric">[add metric: employee count]</span></li></ul>
+              </div>
+            </div>
+          </section>
+
+          <section class="cs-sec reveal">
+            <h2><b>04</b> Tech used</h2>
+            <div class="content"><div class="tags"><span class="tag">React</span><span class="tag">Styled Components</span><span class="tag">REST APIs</span></div></div>
+          </section>
+
+          <section class="cs-sec reveal">
+            <h2><b>05</b> Takeaway</h2>
+            <div class="content"><p class="takeaway">"Many modules, one product feel. Shared components are what make a big internal tool feel trustworthy."</p></div>
+          </section>
+
+          <a href="tdms.html" class="sticker next reveal">
+            <span><span class="kicker">Next case study · HR tech · AI</span><b>TDMS</b></span>
+            <span class="go" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+
+      <section class="cta-band">
+        <span class="hand">thanks for reading!</span>
+        <h2>Want to talk about this build?</h2>
+        <a href="../index.html#contact" class="btn btn-primary">Get in touch <span class="arr">→</span></a>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <span>© 2026 Akhiljith R · Kerala, India</span>
+        <nav aria-label="Footer">
+          <a href="../index.html#work">Work</a>
+          <a href="../Akhiljith_R_Resume.pdf" download>Résumé</a>
+          <a href="https://github.com/Akhiljith1111" target="_blank" rel="noopener">GitHub</a>
+          <a href="#main">Back to top ↑</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="../assets/main.js"></script>
+  </body>
+</html>
