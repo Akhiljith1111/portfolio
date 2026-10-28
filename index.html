@@ -23,6 +23,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/styles.css" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@4.0.0/dist/model-viewer.min.js"></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
@@ -75,7 +76,23 @@
           </div>
 
           <div class="hero-art">
-            <svg viewBox="0 0 400 320" role="img" aria-label="Illustration of Akhiljith, with curly black hair and a beard, coding at a desk; by day a sun shines through the window, by night the moon and stars">
+            <model-viewer
+              src="assets/3d/hero.glb"
+              alt="3D room: Akhiljith, seen from behind, works at a three-monitor desk by a big window, then swivels round in the chair to wave and say &quot;hi, I&#39;m Akhiljith!&quot;; drag to look around"
+              camera-controls
+              disable-zoom
+              disable-pan
+              interaction-prompt="none"
+              camera-orbit="24deg 70deg 11.5m"
+              min-camera-orbit="-8deg 55deg 11.5m"
+              max-camera-orbit="55deg 82deg 11.5m"
+              field-of-view="15deg"
+              camera-target="0m 1.15m -0.3m"
+              shadow-intensity="0.8"
+              exposure="1.05"
+            >
+              <div slot="poster" class="mv-poster">
+                <svg viewBox="0 0 400 320" role="img" aria-label="Illustration of Akhiljith, with curly black hair and a beard, coding at a desk; by day a sun shines through the window, by night the moon and stars">
               <circle cx="200" cy="170" r="150" fill="var(--bg-2)" />
               <!-- window -->
               <rect x="222" y="26" width="146" height="112" rx="10" fill="#bfe3f5" class="day" />
@@ -154,6 +171,8 @@
               <path d="M30 36l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="var(--coral)" />
               <path d="M372 186l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="var(--acc)" />
             </svg>
+              </div>
+            </model-viewer>
           </div>
         </div>
       </section>
@@ -181,64 +200,76 @@
           </div>
           <div class="services">
             <article class="sticker lift service reveal">
-              <svg viewBox="0 0 64 64" aria-hidden="true">
+              <model-viewer class="icon3d" src="assets/3d/icon-saas.glb" aria-hidden="true" loading="lazy" interaction-prompt="none" camera-orbit="18deg 76deg auto" field-of-view="24deg" exposure="1.05">
+                <div slot="poster" class="mv-poster"><svg viewBox="0 0 64 64" aria-hidden="true">
                 <rect x="6" y="14" width="46" height="36" rx="6" fill="var(--tint-2)" stroke="var(--ink)" stroke-width="3" />
                 <rect x="12" y="8" width="46" height="36" rx="6" fill="var(--card)" stroke="var(--ink)" stroke-width="3" />
                 <path d="M12 18h46" stroke="var(--ink)" stroke-width="3" />
                 <rect x="18" y="25" width="16" height="12" rx="2" fill="var(--acc)" />
                 <path d="M39 27h13M39 33h9" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" />
-              </svg>
+              </svg></div>
+              </model-viewer>
               <h3>SaaS &amp; web apps</h3>
               <p>Full products with sign-up, roles and billing-ready structure, built to grow with their users.</p>
               <div class="tags"><span class="tag">React</span><span class="tag">Next.js</span><span class="tag">Java / Python</span></div>
             </article>
             <article class="sticker lift service reveal">
-              <svg viewBox="0 0 64 64" aria-hidden="true">
+              <model-viewer class="icon3d" src="assets/3d/icon-dashboards.glb" aria-hidden="true" loading="lazy" interaction-prompt="none" camera-orbit="18deg 76deg auto" field-of-view="24deg" exposure="1.05">
+                <div slot="poster" class="mv-poster"><svg viewBox="0 0 64 64" aria-hidden="true">
                 <rect x="6" y="8" width="52" height="48" rx="6" fill="var(--card)" stroke="var(--ink)" stroke-width="3" />
                 <rect x="14" y="34" width="8" height="14" rx="2" fill="var(--leaf)" />
                 <rect x="28" y="24" width="8" height="24" rx="2" fill="var(--acc)" />
                 <rect x="42" y="16" width="8" height="32" rx="2" fill="var(--coral)" />
-              </svg>
+              </svg></div>
+              </model-viewer>
               <h3>Dashboards &amp; admin panels</h3>
               <p>Clear internal tools that turn messy data into decisions: tables, filters, charts and exports.</p>
               <div class="tags"><span class="tag">React Query</span><span class="tag">Redux</span><span class="tag">REST</span></div>
             </article>
             <article class="sticker lift service reveal">
-              <svg viewBox="0 0 64 64" aria-hidden="true">
+              <model-viewer class="icon3d" src="assets/3d/icon-realtime.glb" aria-hidden="true" loading="lazy" interaction-prompt="none" camera-orbit="18deg 76deg auto" field-of-view="24deg" exposure="1.05">
+                <div slot="poster" class="mv-poster"><svg viewBox="0 0 64 64" aria-hidden="true">
                 <rect x="6" y="12" width="52" height="40" rx="20" fill="var(--tint-4)" stroke="var(--ink)" stroke-width="3" />
                 <path d="M12 32h10l5-10 8 20 5-10h12" stroke="var(--ink)" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
                 <circle cx="52" cy="14" r="6" fill="var(--coral)" stroke="var(--ink)" stroke-width="2.5" />
-              </svg>
+              </svg></div>
+              </model-viewer>
               <h3>Real-time features</h3>
               <p>Live updates, presence, notifications and monitoring, so everyone sees the same thing at the same moment.</p>
               <div class="tags"><span class="tag">WebSockets</span><span class="tag">Live data</span></div>
             </article>
             <article class="sticker lift service reveal">
-              <svg viewBox="0 0 64 64" aria-hidden="true">
+              <model-viewer class="icon3d" src="assets/3d/icon-ai.glb" aria-hidden="true" loading="lazy" interaction-prompt="none" camera-orbit="18deg 76deg auto" field-of-view="24deg" exposure="1.05">
+                <div slot="poster" class="mv-poster"><svg viewBox="0 0 64 64" aria-hidden="true">
                 <path d="M8 14a6 6 0 0 1 6-6h36a6 6 0 0 1 6 6v24a6 6 0 0 1-6 6H26l-12 10V44h0a6 6 0 0 1-6-6z" fill="var(--card)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" />
                 <path d="M32 14l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="var(--acc)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round" />
-              </svg>
+              </svg></div>
+              </model-viewer>
               <h3>AI features</h3>
               <p>Chat assistants, document parsing and agent workflows plugged into real products, using LLMs where they actually help.</p>
               <div class="tags"><span class="tag">LangChain</span><span class="tag">RAG</span><span class="tag">Agents</span></div>
             </article>
             <article class="sticker lift service reveal">
-              <svg viewBox="0 0 64 64" aria-hidden="true">
+              <model-viewer class="icon3d" src="assets/3d/icon-rebuild.glb" aria-hidden="true" loading="lazy" interaction-prompt="none" camera-orbit="18deg 76deg auto" field-of-view="24deg" exposure="1.05">
+                <div slot="poster" class="mv-poster"><svg viewBox="0 0 64 64" aria-hidden="true">
                 <rect x="6" y="34" width="24" height="22" rx="4" fill="var(--tint-1)" stroke="var(--ink)" stroke-width="3" />
                 <rect x="34" y="34" width="24" height="22" rx="4" fill="var(--tint-2)" stroke="var(--ink)" stroke-width="3" />
                 <rect x="20" y="8" width="24" height="22" rx="4" fill="var(--acc)" stroke="var(--ink)" stroke-width="3" />
-              </svg>
+              </svg></div>
+              </model-viewer>
               <h3>Frontend rebuilds</h3>
               <p>Untangle a legacy frontend into modern, modular React, using micro-frontends when teams need to ship independently.</p>
               <div class="tags"><span class="tag">Micro-frontends</span><span class="tag">Module Federation</span></div>
             </article>
             <article class="sticker lift service reveal">
-              <svg viewBox="0 0 64 64" aria-hidden="true">
+              <model-viewer class="icon3d" src="assets/3d/icon-figma.glb" aria-hidden="true" loading="lazy" interaction-prompt="none" camera-orbit="18deg 76deg auto" field-of-view="24deg" exposure="1.05">
+                <div slot="poster" class="mv-poster"><svg viewBox="0 0 64 64" aria-hidden="true">
                 <path d="M14 50l6-20 18-18 14 14-18 18z" fill="var(--card)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" />
                 <circle cx="30" cy="34" r="4" fill="var(--coral)" />
                 <path d="M14 50l12-12" stroke="var(--ink)" stroke-width="3" />
                 <path d="M44 48l6 4-6 4M58 48l-4 8" stroke="var(--leaf)" stroke-width="3" fill="none" stroke-linecap="round" />
-              </svg>
+              </svg></div>
+              </model-viewer>
               <h3>Figma to working app</h3>
               <p>Pixel-faithful, responsive builds of Figma designs, with reusable component libraries that whole teams keep using.</p>
               <div class="tags"><span class="tag">Figma</span><span class="tag">Tailwind</span><span class="tag">Components</span></div>
@@ -527,6 +558,7 @@
               <a class="sticker" href="https://www.linkedin.com/in/akhiljith-r-6435aa195/" target="_blank" rel="noopener"><span><small>linkedin</small>Akhiljith R</span><span>↗</span></a>
               <a class="sticker" href="https://github.com/Akhiljith1111" target="_blank" rel="noopener"><span><small>github</small>Akhiljith1111</span><span>↗</span></a>
               <span class="hand">↖ I reply within 24h, promise!</span>
+              <model-viewer class="badge3d" src="assets/3d/badge.glb" alt="3D Akhiljith logo badge spinning" loading="lazy" camera-controls disable-zoom disable-pan interaction-prompt="none" camera-orbit="0deg 80deg auto" field-of-view="26deg" exposure="1.05"></model-viewer>
             </div>
           </div>
         </div>

@@ -442,6 +442,48 @@ a.sticker:hover,
   }
 }
 
+/* 3D models (Blender → glTF, shown with <model-viewer>) */
+model-viewer {
+  --poster-color: transparent;
+  --progress-bar-color: transparent;
+  display: block;
+  background: transparent;
+}
+.hero-art model-viewer {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 0.92;
+  background: var(--bg-2);
+  border: 2px solid var(--ink);
+  border-radius: 28px;
+  box-shadow: 6px 6px 0 var(--shadow);
+  overflow: hidden;
+  cursor: grab;
+}
+.hero-art model-viewer:active {
+  cursor: grabbing;
+}
+.mv-poster {
+  width: 100%;
+  height: 100%;
+}
+.icon3d {
+  width: 84px;
+  height: 84px;
+  margin: -10px 0 8px -10px;
+}
+.icon3d .mv-poster svg {
+  width: 64px;
+  height: 64px;
+  margin: 10px 0 0 10px;
+}
+.badge3d {
+  width: 140px;
+  height: 140px;
+  margin-top: 4px;
+  cursor: grab;
+}
+
 /* Day / night layers in illustrations */
 .day {
   opacity: var(--day);
