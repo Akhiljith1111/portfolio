@@ -1,75 +1,77 @@
 /* ── Tokens ── */
 :root {
-  --bg: #e6f2ec;
-  --bg-2: #d6eadf;
-  --card: #fffdf7;
-  --ink: #10302a;
-  --ink-2: #3d5c55;
-  --ink-3: #66827a;
-  --soft: rgba(16, 48, 42, 0.14);
-  --acc: #f2b134;
-  --on-acc: #10302a;
-  --coral: #e0573b;
-  --leaf: #2f7d5d;
-  --shadow: #10302a;
-  --screen: #fffdf7;
-  --code: #10302a;
+  --bg: #f5f7fb;
+  --bg-2: #e9eef7;
+  --card: #ffffff;
+  --ink: #0f172a;
+  --ink-2: #3b4660;
+  --ink-3: #66708a;
+  --soft: rgba(15, 23, 42, 0.12);
+  --acc: #2f6bff;
+  --on-acc: #ffffff;
+  --hl: #b6f23a;
+  --on-hl: #0f172a;
+  --coral: #2452e0;
+  --leaf: #5fae12;
+  --shadow: #0f172a;
+  --screen: #ffffff;
+  --code: #0f172a;
   --skin: #c98a5e;
   --shirt: #f3ead6;
-  --tint-1: #ffd9cf;
-  --tint-2: #cfe3ff;
-  --tint-3: #fbe7b0;
-  --tint-4: #d5f0de;
+  --tint-1: #dfe8ff;
+  --tint-2: #e8f8cc;
+  --tint-3: #ece6ff;
+  --tint-4: #d8f2ee;
   --day: 1;
   --night: 0;
 
   --sans: "Bricolage Grotesque", system-ui, -apple-system, sans-serif;
   --hand: "Caveat", cursive;
   --mono: "JetBrains Mono", ui-monospace, monospace;
-  --gutter: clamp(16px, 4vw, 48px);
-  --max: 1160px;
+  --gutter: clamp(16px, 5vw, 96px);
+  --max: 1600px;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0e1916;
-    --bg-2: #13211d;
-    --card: #16251f;
-    --ink: #e6f2ec;
-    --ink-2: #a3bbb3;
-    --ink-3: #6f8a82;
-    --soft: rgba(230, 242, 236, 0.14);
-    --coral: #ff7a5c;
-    --leaf: #4fbf8b;
-    --shadow: #f2b134;
-    --screen: #0a1310;
-    --code: #c6ff3d;
-    --tint-1: #3a2620;
-    --tint-2: #1d2c44;
-    --tint-3: #3a3016;
-    --tint-4: #173326;
+    --bg: #0b1020;
+    --bg-2: #10172b;
+    --card: #141c33;
+    --ink: #e8edf7;
+    --ink-2: #a9b4cc;
+    --ink-3: #74809c;
+    --soft: rgba(232, 237, 247, 0.14);
+    --coral: #8fb0ff;
+    --leaf: #b6f23a;
+    --shadow: #2f6bff;
+    --screen: #070b16;
+    --code: #b6f23a;
+    --tint-1: #1a2550;
+    --tint-2: #23331a;
+    --tint-3: #241d45;
+    --tint-4: #12302d;
     --day: 0;
     --night: 1;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0e1916;
-  --bg-2: #13211d;
-  --card: #16251f;
-  --ink: #e6f2ec;
-  --ink-2: #a3bbb3;
-  --ink-3: #6f8a82;
-  --soft: rgba(230, 242, 236, 0.14);
-  --coral: #ff7a5c;
-  --leaf: #4fbf8b;
-  --shadow: #f2b134;
-  --screen: #0a1310;
-  --code: #c6ff3d;
-  --tint-1: #3a2620;
-  --tint-2: #1d2c44;
-  --tint-3: #3a3016;
-  --tint-4: #173326;
+  --bg: #0b1020;
+  --bg-2: #10172b;
+  --card: #141c33;
+  --ink: #e8edf7;
+  --ink-2: #a9b4cc;
+  --ink-3: #74809c;
+  --soft: rgba(232, 237, 247, 0.14);
+  --coral: #8fb0ff;
+  --leaf: #b6f23a;
+  --shadow: #2f6bff;
+  --screen: #070b16;
+  --code: #b6f23a;
+  --tint-1: #1a2550;
+  --tint-2: #23331a;
+  --tint-3: #241d45;
+  --tint-4: #12302d;
   --day: 0;
   --night: 1;
   color-scheme: dark;
@@ -152,8 +154,8 @@ svg {
   font-weight: 500;
 }
 mark {
-  background: var(--acc);
-  color: var(--on-acc);
+  background: var(--hl);
+  color: var(--on-hl);
   padding: 0 0.12em;
   border-radius: 0.12em;
   box-decoration-break: clone;
@@ -352,6 +354,11 @@ a.sticker:hover,
   max-width: 720px;
   margin-bottom: clamp(36px, 5vw, 56px);
 }
+.sec-head > .kicker {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--coral);
+}
 .sec-head h2 {
   font-size: clamp(36px, 5vw, 60px);
   line-height: 1.02;
@@ -383,8 +390,8 @@ a.sticker:hover,
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font: 500 13px var(--mono);
-  padding: 6px 14px 6px 10px;
+  font: 500 15px var(--mono);
+  padding: 7px 16px 7px 12px;
   border: 2px solid var(--ink);
   border-radius: 999px;
   background: var(--card);
@@ -406,7 +413,7 @@ a.sticker:hover,
   }
 }
 .hero .hand {
-  font-size: 30px;
+  font-size: clamp(32px, 3.2vw, 42px);
   margin: 22px 0 6px;
 }
 .hero h1 {
@@ -416,10 +423,10 @@ a.sticker:hover,
   font-weight: 800;
 }
 .hero-lede {
-  font-size: clamp(18px, 1.7vw, 21px);
+  font-size: clamp(19px, 1.9vw, 24px);
   color: var(--ink-2);
   margin-top: 22px;
-  max-width: 540px;
+  max-width: 600px;
 }
 .hero-cta {
   display: flex;
@@ -497,22 +504,31 @@ model-viewer {
 /* ── Trust strip ── */
 .trust {
   border-block: 2px solid var(--ink);
-  background: var(--acc);
-  color: var(--on-acc);
+  background: var(--hl);
+  color: var(--on-hl);
   overflow: hidden;
 }
 .trust-line {
-  padding: 18px var(--gutter);
-  text-align: center;
-  font-weight: 500;
-  font-size: 16px;
   border-bottom: 2px solid var(--ink);
+}
+.trust-line p {
+  font-weight: 500;
+  font-size: clamp(16px, 1.4vw, 19px);
+  white-space: nowrap;
+  padding-right: 48px;
+}
+.trust-line p::after {
+  content: "✦";
+  font-size: 0.8em;
+  margin-left: 48px;
 }
 .trust-line b {
   font-weight: 800;
 }
 .marquee {
   padding: 14px 0;
+  touch-action: pan-y;
+  user-select: none;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
@@ -520,6 +536,10 @@ model-viewer {
   display: flex;
   width: max-content;
   animation: scroll 45s linear infinite;
+}
+.marquee-track.reverse {
+  animation-duration: 60s;
+  animation-direction: reverse;
 }
 .marquee:hover .marquee-track {
   animation-play-state: paused;
@@ -947,12 +967,12 @@ footer nav {
   margin-bottom: clamp(48px, 7vw, 80px);
 }
 .cs-sec > h2 {
-  font-size: 15px;
+  font-size: 18px;
   font-family: var(--mono);
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--ink-3);
+  color: var(--coral);
   padding-top: 8px;
 }
 .cs-sec > h2 b {

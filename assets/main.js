@@ -174,8 +174,12 @@ const smoothstep = (e0, e1, x) => {
   const t = Math.min(Math.max((x - e0) / (e1 - e0), 0), 1);
   return t * t * (3 - 2 * t);
 };
+let heroVisible = true;
+const heroMv = document.querySelector(".hero-art model-viewer");
+if (heroMv) new IntersectionObserver(([e]) => (heroVisible = e.isIntersecting)).observe(heroMv);
 function screenGlow(now) {
-  const mv = document.querySelector(".hero-art model-viewer");
+  const mv = heroMv;
+  if (mv && !heroVisible && effectiveTheme() === "dark") return requestAnimationFrame(screenGlow); // skip material updates offscreen
   const skin = mv?.model?.getMaterialByName("Skin");
   if (!skin || effectiveTheme() !== "dark") {
     glowRunning = false;
@@ -229,6 +233,53 @@ if (links.length) {
   );
   document.querySelectorAll("main section[id]").forEach((s) => sectionObserver.observe(s));
 }
+
+// Marquees: auto-scroll, plus wheel / drag to scroll by hand while hovered
+document.querySelectorAll(".marquee").forEach((m) => {
+  const track = m.querySelector(".marquee-track");
+  const speed = track.classList.contains("reverse") ? 55 : -70; // px per second
+  let x = 0, hover = false, drag = null, last = 0, running = false;
+  track.style.animation = "none";
+  m.style.cursor = "grab";
+  const wrap = () => {
+    const half = track.scrollWidth / 2;
+    x = ((x % half) + half) % half - half;
+    track.style.transform = `translate3d(${x}px,0,0)`;
+  };
+  const tick = (now) => {
+    const dt = Math.min(now - last, 100) / 1000;
+    last = now;
+    if (!hover && !drag && !reduceMotion.matches) x += speed * dt;
+    wrap();
+    if (running) requestAnimationFrame(tick);
+  };
+  new IntersectionObserver(([e]) => {
+    const was = running;
+    running = e.isIntersecting;
+    if (running && !was) { last = performance.now(); requestAnimationFrame(tick); }
+  }).observe(m);
+  m.addEventListener("pointerenter", () => (hover = true));
+  m.addEventListener("pointerleave", () => (hover = false));
+  m.addEventListener("wheel", (e) => {
+    e.preventDefault();
+    x -= Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    wrap();
+  }, { passive: false });
+  m.addEventListener("pointerdown", (e) => {
+    drag = e.clientX;
+    m.setPointerCapture(e.pointerId);
+    m.style.cursor = "grabbing";
+  });
+  m.addEventListener("pointermove", (e) => {
+    if (drag === null) return;
+    x += e.clientX - drag;
+    drag = e.clientX;
+    wrap();
+  });
+  const endDrag = () => { drag = null; m.style.cursor = "grab"; };
+  m.addEventListener("pointerup", endDrag);
+  m.addEventListener("pointercancel", endDrag);
+});
 
 // Reveal on scroll
 const revealObserver = new IntersectionObserver(
