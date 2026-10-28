@@ -1,7 +1,10 @@
 /assets/3d/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 
-/assets/*
+/assets/styles.css
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/assets/main.js
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
 /*.pdf
