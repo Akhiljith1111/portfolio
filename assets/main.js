@@ -132,7 +132,7 @@ function paintHero3d() {
   }
   mat("Sky")?.pbrMetallicRoughness.setBaseColorFactor(night ? "#1b2b4a" : "#bfe3f5");
   mat("Sky")?.setEmissiveFactor(night ? [0.03, 0.05, 0.12] : [0.27, 0.36, 0.42]);
-  mat("Orb")?.pbrMetallicRoughness.setBaseColorFactor(night ? "#e6f2ec" : "#f2b134");
+  mat("Orb")?.pbrMetallicRoughness.setBaseColorFactor(night ? "#e8edf7" : "#f2b134");
   mat("Orb")?.setEmissiveFactor(night ? [0.75, 0.8, 0.78] : [0.53, 0.26, 0.02]);
   // the lamp flickers on when switching from light to dark; otherwise it's simply on or off
   const switchedOn = night && lastNight === false;

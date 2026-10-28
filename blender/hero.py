@@ -15,33 +15,33 @@ SHOE = mat("Shoe", "#f4f1ea", 0.6)
 LIP = mat("Lip", "#9c5a52", 0.5)
 MOUTH = mat("Mouth", "#3a1f1a", 0.8)
 WHITE = mat("EyeWhite", "#fbf7ee", 0.4)
-INK = mat("Ink", "#10302a", 0.7)
-CHAIR = mat("ChairFabric", "#1d3a34", 0.95)
-METAL = mat("Metal", "#2a2f2e", 0.35)
+INK = mat("Ink", "#0f172a", 0.7)
+CHAIR = mat("ChairFabric", "#1b2a52", 0.95)
+METAL = mat("Metal", "#262b38", 0.35)
 WOOD = mat("Wood", "#c99764", 0.6)
 FLOOR = mat("Floor", "#b8875b", 0.7)
-WALL = mat("Wall", "#d3e8dc", 0.95)
-WALL2 = mat("WallSide", "#c4ddd0", 0.95)
-TRIM = mat("Trim", "#fffdf7", 0.6)
-CARD = mat("Card", "#fffdf7", 0.6)
-ACC = mat("Accent", "#f2b134", 0.6)
-CORAL = mat("Coral", "#e0573b", 0.7)
+WALL = mat("Wall", "#e3e9f5", 0.95)
+WALL2 = mat("WallSide", "#d3dcee", 0.95)
+TRIM = mat("Trim", "#ffffff", 0.6)
+CARD = mat("Card", "#ffffff", 0.6)
+ACC = mat("Accent", "#2f6bff", 0.6)
+CORAL = mat("Coral", "#b6f23a", 0.7)
 LEAF = mat("Leaf", "#2f7d5d", 0.7)
-BEZEL = mat("Bezel", "#1a1f1e", 0.4)
+BEZEL = mat("Bezel", "#161b28", 0.4)
 SKY = mat("Sky", "#bfe3f5", 1.0, emit=0.35)       # recoloured per theme in the page
 ORB = mat("Orb", "#f2b134", 1.0, emit=0.6)        # sun by day, moon by night
 BULB = mat("Bulb", "#e8e2d0", 0.4)                # lit at night by the page
 # screen contents glow a little
-S_DARK = mat("ScrDark", "#0e1916", 0.5, emit=0.25)
-S_LIGHT = mat("ScrLight", "#fffdf7", 0.5, emit=0.35)
-S_MINT = mat("ScrMint", "#e6f2ec", 0.5, emit=0.35)
-E_CORAL = mat("ScrCoral", "#ff7a5c", 0.5, emit=0.6)
-E_LEAF = mat("ScrLeaf", "#4fbf8b", 0.5, emit=0.6)
-E_ACC = mat("ScrAcc", "#f2b134", 0.5, emit=0.6)
-E_CREAM = mat("ScrCream", "#e6f2ec", 0.5, emit=0.5)
-E_LIME = mat("ScrLime", "#c6ff3d", 0.5, emit=0.6)
-E_INK = mat("ScrInk", "#10302a", 0.5)
-E_GREY = mat("ScrGrey", "#3d5c55", 0.5, emit=0.2)
+S_DARK = mat("ScrDark", "#0b1020", 0.5, emit=0.25)
+S_LIGHT = mat("ScrLight", "#ffffff", 0.5, emit=0.35)
+S_MINT = mat("ScrMint", "#e9eef7", 0.5, emit=0.35)
+E_CORAL = mat("ScrCoral", "#8fb0ff", 0.5, emit=0.6)
+E_LEAF = mat("ScrLeaf", "#b6f23a", 0.5, emit=0.6)
+E_ACC = mat("ScrAcc", "#2f6bff", 0.5, emit=0.6)
+E_CREAM = mat("ScrCream", "#e8edf7", 0.5, emit=0.5)
+E_LIME = mat("ScrLime", "#b6f23a", 0.5, emit=0.6)
+E_INK = mat("ScrInk", "#0f172a", 0.5)
+E_GREY = mat("ScrGrey", "#3b4660", 0.5, emit=0.2)
 
 root = empty("Hero", (0, 0, 0))
 
@@ -50,7 +50,7 @@ WY = 1.3                                  # inner face of the back wall
 rbox("Floor", (0, 0.2, -0.03), (3.2, 2.5, 0.06), FLOOR, bevel=0.01)
 for i in range(1, 8):                     # plank seams
     rbox(f"Seam{i}", (-1.6 + i * 0.4, 0.2, 0.0005), (0.006, 2.5, 0.002), mat("Seam", "#9c7048"), bevel=0)
-cyl("RugEdge", (0, 0.05, 0.004), 0.82, 0.008, LEAF, seg=64)
+cyl("RugEdge", (0, 0.05, 0.004), 0.82, 0.008, ACC, seg=64)
 cyl("Rug", (0, 0.05, 0.009), 0.74, 0.008, CARD, seg=64)
 WX0, WX1, WZ0, WZ1 = -0.85, 0.85, 1.05, 2.15  # window opening
 for name, x0, x1, z0, z1 in [("WallL", -1.6, WX0, 0, 2.5), ("WallR", WX1, 1.6, 0, 2.5),
@@ -73,10 +73,10 @@ rbox("Sill", (0, WY - 0.07, WZ0 - 0.02), (1.9, 0.2, 0.04), TRIM, bevel=0.01)
 rbox("SkyPanel", (0, WY + 0.75, 1.6), (2.6, 0.02, 1.6), SKY, bevel=0)
 orb = sphere("SunMoon", (0.45, WY + 0.72, 1.98), (0.11, 0.01, 0.11), ORB)
 city = [(-1.0, 0.5), (-0.78, 0.75), (-0.55, 0.42), (-0.36, 0.9), (-0.12, 0.55), (0.1, 0.68), (0.3, 0.4), (0.5, 0.82), (0.72, 0.5), (0.95, 0.66)]
-boxes("City", [((x, WY + 0.62, 0.8 + h / 2), (0.2, 0.04, h)) for x, h in city], mat("City", "#8fbfa8", 0.9))
+boxes("City", [((x, WY + 0.62, 0.8 + h / 2), (0.2, 0.04, h)) for x, h in city], mat("City", "#a9bce0", 0.9))
 boxes("CityWindows", [((x - 0.04 + (k % 2) * 0.08, WY + 0.6, 0.95 + (k // 2) * 0.12), (0.03, 0.01, 0.05))
                       for x, h in city for k in range(int(h / 0.12) * 2) if 0.95 + (k // 2) * 0.12 < 0.8 + h - 0.05],
-      mat("CityLights", "#fffdf7", 0.5, emit=0.4))
+      mat("CityLights", "#ffffff", 0.5, emit=0.4))
 for i, (x, r) in enumerate([(-0.7, 0.16), (-0.45, 0.12), (0.2, 0.14), (0.65, 0.17)]):
     sphere(f"Tree{i}", (x, WY + 0.45, 1.0 + r * 0.3), (r, r * 0.6, r), LEAF)
 clouds = []
@@ -92,7 +92,7 @@ CURTAIN_STEPS = 8
 CY = 1.105                                # in front of the sill, just behind the desk
 rbox("Rod", (0, CY, 2.3), (2.7, 0.025, 0.025), METAL, bevel=0.01)
 def curtain_mat(k):
-    m = mat(f"Curtain{k}", "#f2b134", 1.0)
+    m = mat(f"Curtain{k}", "#3d74ff", 1.0)
     b = next(n for n in m.node_tree.nodes if n.type == "BSDF_PRINCIPLED")
     b.inputs["Alpha"].default_value = 1.0 if k == 0 else 0.0   # open by default
     for attr, val in (("surface_render_method", "BLENDED"), ("blend_method", "BLEND")):
@@ -160,7 +160,7 @@ for s in (-1, 1):
     rbox(f"DeskPost{s}", (0.88 * s, DY, 0.36), (0.05, 0.05, 0.68), METAL, bevel=0.01)
     rbox(f"DeskFoot{s}", (0.88 * s, DY, 0.02), (0.06, 0.66, 0.04), METAL, bevel=0.01)
 rbox("DeskBeam", (0, DY + 0.25, 0.62), (1.76, 0.04, 0.05), METAL, bevel=0.01)
-rbox("DeskMat", (0.05, 0.47, 0.728), (0.95, 0.36, 0.006), mat("Felt", "#34443f", 1.0), bevel=0.004)
+rbox("DeskMat", (0.05, 0.47, 0.728), (0.95, 0.36, 0.006), mat("Felt", "#1e2740", 1.0), bevel=0.004)
 rbox("KbBase", (0, 0.44, 0.738), (0.44, 0.14, 0.016), CARD, bevel=0.005)
 boxes("Keys", [((-0.2 + c * 0.0335 + (r % 2) * 0.01, 0.395 + r * 0.03, 0.75), (0.028, 0.024, 0.01))
                for r in range(4) for c in range(12)], mat("KeyCap", "#e7e1d3", 0.5))
@@ -257,7 +257,7 @@ mc = monitors["center"]
 scr("CodeBg", mc, 0, 0, MW, MH, S_DARK)
 scr("CodeTabs", mc, 0, MH / 2 - 0.015, MW, 0.03, E_GREY, 0.001)
 scr("CodeTab", mc, -0.22, MH / 2 - 0.015, 0.12, 0.03, S_DARK, 0.002)
-scr("CodeGutter", mc, -0.275, -0.015, 0.035, MH - 0.03, mat("ScrGutter", "#13211d", 0.5, emit=0.2), 0.001)
+scr("CodeGutter", mc, -0.275, -0.015, 0.035, MH - 0.03, mat("ScrGutter", "#10172b", 0.5, emit=0.2), 0.001)
 code_lines = []
 spec = [(0.0, 0.2, E_CORAL), (0.03, 0.3, E_CREAM), (0.06, 0.24, E_LEAF), (0.06, 0.32, E_CREAM), (0.03, 0.14, E_ACC),
         (0.06, 0.28, E_LIME), (0.03, 0.22, E_CREAM), (0.0, 0.1, E_CORAL)]
@@ -272,7 +272,7 @@ cursor = scr("Cursor", mc, -0.235 + 0.11, MH / 2 - 0.06 - 7 * 0.034, 0.006, 0.02
 # left: dashboard
 ml = monitors["left"]
 scr("DashBg", ml, 0, 0, MW, MH, S_LIGHT)
-scr("DashNav", ml, -0.255, 0, 0.09, MH, mat("ScrNav", "#10302a", 0.5, emit=0.15), 0.001)
+scr("DashNav", ml, -0.255, 0, 0.09, MH, mat("ScrNav", "#0f172a", 0.5, emit=0.15), 0.001)
 for k, m in enumerate((E_ACC, E_LEAF, E_CORAL)):
     scr(f"Kpi{k}", ml, -0.13 + k * 0.13, 0.115, 0.11, 0.07, m, 0.001)
 dash_bars = []
@@ -289,7 +289,7 @@ sphere("DashRingNotch", (0.065, 0, 0), (0.022, 0.004, 0.022), E_CORAL, parent=ri
 # right: AI chat with messages arriving
 mr = monitors["right"]
 scr("ChatBg", mr, 0, 0, MW, MH, S_MINT)
-scr("ChatHead", mr, 0, MH / 2 - 0.02, MW, 0.04, mat("ScrHead", "#10302a", 0.5, emit=0.15), 0.001)
+scr("ChatHead", mr, 0, MH / 2 - 0.02, MW, 0.04, mat("ScrHead", "#0f172a", 0.5, emit=0.15), 0.001)
 scr("ChatInput", mr, 0, -MH / 2 + 0.03, MW - 0.06, 0.035, S_LIGHT, 0.001)
 chat_msgs = []
 for k, (side, w, m) in enumerate([(1, 0.22, E_LEAF), (-1, 0.3, S_LIGHT), (1, 0.16, E_LEAF), (-1, 0.34, S_LIGHT)]):
@@ -403,9 +403,9 @@ for s in (-1, 1):
 # "hello!" bubble near the head once turned, facing the default camera
 bub = empty("Bubble", (0.5, -0.3, 1.72), root)
 bub.rotation_euler = (0, 0, math.radians(22))
-rbox("BubbleCard", (0, 0, 0), (0.66, 0.04, 0.16), mat("Bubble", "#fffdf7", 0.6), bevel=0.07, parent=bub)
-star("BubbleTail", (-0.23, 0, -0.085), 0.055, mat("Bubble", "#fffdf7", 0.6), depth=0.035, parent=bub)
-text("BubbleText", "hi, I'm Akhiljith!", (0, -0.025, 0.0), 0.085, mat("BubbleText", "#e0573b", 0.7), extrude=0.01, parent=bub)
+rbox("BubbleCard", (0, 0, 0), (0.66, 0.04, 0.16), mat("Bubble", "#ffffff", 0.6), bevel=0.07, parent=bub)
+star("BubbleTail", (-0.23, 0, -0.085), 0.055, mat("Bubble", "#ffffff", 0.6), depth=0.035, parent=bub)
+text("BubbleText", "hi, I'm Akhiljith!", (0, -0.025, 0.0), 0.085, mat("BubbleText", "#2f6bff", 0.7), extrude=0.01, parent=bub)
 
 # ── animation ──
 def smooth(e0, e1, f):

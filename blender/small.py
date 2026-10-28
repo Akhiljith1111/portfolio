@@ -3,8 +3,8 @@ exec(open(EXPORT).read())
 R90 = (math.pi / 2, 0, 0)
 
 def palette():
-    return dict(INK=mat("Ink", "#10302a"), CARD=mat("Card", "#fffdf7"), ACC=mat("Accent", "#f2b134"),
-                CORAL=mat("Coral", "#e0573b"), LEAF=mat("Leaf", "#2f7d5d"), BLUE=mat("Blue", "#cfe3ff"))
+    return dict(INK=mat("Ink", "#0f172a"), CARD=mat("Card", "#ffffff"), ACC=mat("Accent", "#2f6bff"),
+                CORAL=mat("Coral", "#b6f23a"), LEAF=mat("Leaf", "#8fb0ff"), BLUE=mat("Blue", "#dfe8ff"))
 
 def keys(obj, path, idx, pts):
     for f, v in pts:
